@@ -29,39 +29,23 @@
             -Role
         
 
-- Courses
-
-
-    -name
-    -time
-    -List<Student>
-    -score
-    -remark
+  - Courses
+    
+            -name
+            -time
+            -List<Student>
+            -score
+            -remark
   
 - Class
 
-
-    -name
-    -List<Course>
-    -List<Student>
-    -List<Teacher>
+      -name
+      -List<Course>
+      -List<Student>
+      -List<Teacher>
   
       
 - Guardian
-
-
-    -firstName
-    -lastName
-    -email
-    -Role
-    -Address
-    -List<Student>
-
-
-
-
-- Admin
-
 
       -firstName
       -lastName
@@ -69,6 +53,18 @@
       -Role
       -Address
       -List<Student>
+
+
+
+
+- Admin
+
+        -firstName
+        -lastName
+        -email
+        -Role
+        -Address
+        -List<Student>
 
 
 

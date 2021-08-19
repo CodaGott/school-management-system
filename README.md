@@ -1,7 +1,7 @@
-- School Management System
+# School Management System
     
 
-    -DATABASE
+#DATABASE
 
 - Student
   
@@ -29,7 +29,7 @@
             -Role
         
 
-  - Courses
+- Courses
     
             -name
             -time
@@ -70,4 +70,41 @@
 
 
 
-REQUIREMENT - Functional and non Functional
+#REQUIREMENT - Functional and non-Functional
+
+#Functional Requirements
+
+-Teacher can
+    
+    -Register
+    -Confirm email
+    -Login
+    -Logout
+    -Add Student
+    -Enter Courses for Students
+    -Delete Student
+    -Update Student Info(Add Scores)
+    -View All Students
+    -View Course Assigned to Him/Her
+    -Search For Specific Student
+    -Update Profile
+    -Change Password
+    -Change Password
+
+-Admin can
+
+    -Register
+    -Confirm email
+    -Login
+    -Logout
+    -Add Teacher, Student
+    -Enter Courses for Students
+    -Delete Student, Teacher, Parent
+    -Update Student, Teacher, Parent Info
+    -Assign Course Teacher
+    -View Course Assigned to Him/Her
+    -Search For Specific Student, Teacher
+    -Search For All Students, Teachers
+    -Update Profile
+    -Change Password
+    -Change Password

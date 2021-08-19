@@ -30,6 +30,6 @@ public class Course {
             )
     )
     private List<Student> students;
-    private Integer scores;
+    private Integer score;
     private String remark;
 }

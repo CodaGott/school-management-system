@@ -27,7 +27,12 @@ public class Student {
     private List<Course> courses;
     @OneToMany
     private List<Teacher> teachers;
+    @OneToOne
+    private Class Class;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Embedded
+    private Address address;
+
     private Map<Course, Integer> scores;
 }

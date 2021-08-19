@@ -29,4 +29,6 @@ public class Teacher {
     private List<Class> classes;
     @OneToMany
     private List<Student> students;
+
+
 }

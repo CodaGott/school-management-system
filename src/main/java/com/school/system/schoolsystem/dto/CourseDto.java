@@ -1,5 +1,6 @@
 package com.school.system.schoolsystem.dto;
 
+import com.school.system.schoolsystem.model.Role;
 import com.school.system.schoolsystem.model.Student;
 import lombok.Data;
 
@@ -13,4 +14,5 @@ public class CourseDto {
     private List<Student> students;
     private Integer scores;
     private String remark;
+
 }

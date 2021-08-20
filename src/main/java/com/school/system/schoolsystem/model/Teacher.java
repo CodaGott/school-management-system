@@ -26,7 +26,7 @@ public class Teacher {
     @OneToMany
     private List<Course> courses;
     @OneToMany
-    private List<Class> classes;
+    private List<ClassRoom> classRooms;
     @OneToMany
     private List<Student> students;
 

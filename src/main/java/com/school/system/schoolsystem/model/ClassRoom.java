@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Class {
+public class ClassRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

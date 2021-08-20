@@ -1,6 +1,6 @@
 package com.school.system.schoolsystem.dto;
 
-import com.school.system.schoolsystem.model.Class;
+import com.school.system.schoolsystem.model.ClassRoom;
 import com.school.system.schoolsystem.model.*;
 import lombok.Data;
 
@@ -14,6 +14,6 @@ public class TeacherDto {
     private Role role;
     private Address address;
     private List<Course> courses;
-    private List<Class> classes;
+    private List<ClassRoom> classRooms;
     private List<Student> students;
 }

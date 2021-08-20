@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @Entity
@@ -28,11 +27,11 @@ public class Student {
     @OneToMany
     private List<Teacher> teachers;
     @OneToOne
-    private Class Class;
+    private ClassRoom classRoom;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Embedded
     private Address address;
 
-    private Map<Course, Integer> scores;
+//    private Map<Course, Integer> scores;
 }

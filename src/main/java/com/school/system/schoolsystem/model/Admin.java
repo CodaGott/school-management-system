@@ -18,6 +18,7 @@ public class Admin {
     private String lastName;
     private Integer age;
     private String email;
+    private String phoneNumber;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Embedded

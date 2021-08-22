@@ -20,6 +20,7 @@ public class Student {
     private String lastName;
     private Integer age;
     private String email;
+    private String password;
     @OneToOne
     private Parent parent;
     @OneToMany

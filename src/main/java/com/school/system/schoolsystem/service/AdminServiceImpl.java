@@ -64,6 +64,5 @@ public class AdminServiceImpl implements AdminService{
         }else {
             throw new NoSuchElementException("Admin with id doesn't exist");
         }
-
     }
 }

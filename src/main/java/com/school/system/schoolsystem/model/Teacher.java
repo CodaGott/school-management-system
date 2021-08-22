@@ -18,6 +18,7 @@ public class Teacher {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String phoneNumber;
     private Integer age;
     @Enumerated(EnumType.STRING)

@@ -11,6 +11,6 @@ public interface CourseService {
     Course updateCourseInfo(Long courseId, CourseDto courseDto);
     List<Course> getAllCourse();
     Optional<Course> getACourse(Long courseId);
-    Course getACourseByName(String courseName);
+    Optional<Course> getACourseByName(String courseName);
     void deleteCourse(Long id);
 }

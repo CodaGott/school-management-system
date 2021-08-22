@@ -30,7 +30,7 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Course getACourseByName(String courseName) {
+    public Optional<Course> getACourseByName(String courseName) {
         return null;
     }
 

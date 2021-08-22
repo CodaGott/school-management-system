@@ -4,12 +4,13 @@ import com.school.system.schoolsystem.dto.StudentDto;
 import com.school.system.schoolsystem.model.Student;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface StudentService {
     Student createStudent(StudentDto studentDto);
-    Student getAStudent(Long studentId);
+    Optional<Student> getAStudent(Long studentId);
     List<Student> getAllStudents();
-    Student getStudentByName(String studentFirstName);
+    Optional<Student> getStudentByName(String studentFirstName);
     Student updateStudentInfo(Long studentId, StudentDto studentDto);
     void deleteStudentById(Long studentId);
 }

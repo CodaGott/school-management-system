@@ -5,6 +5,7 @@ import com.school.system.schoolsystem.model.Student;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -15,7 +16,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student getAStudent(Long studentId) {
+    public Optional<Student> getAStudent(Long studentId) {
         return null;
     }
 
@@ -25,7 +26,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student getStudentByName(String studentFirstName) {
+    public Optional<Student> getStudentByName(String studentFirstName) {
         return null;
     }
 

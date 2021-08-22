@@ -5,6 +5,7 @@ import com.school.system.schoolsystem.model.Teacher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
@@ -14,8 +15,8 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public Teacher getATeacher(Long teacherId) {
-        return null;
+    public Optional<Teacher> getATeacher(Long teacherId) {
+        return Optional.empty();
     }
 
     @Override
@@ -29,8 +30,8 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public Teacher findATeacherByName(String teacherFirstName) {
-        return null;
+    public Optional<Teacher> findATeacherByName(String teacherFirstName) {
+        return Optional.empty();
     }
 
     @Override

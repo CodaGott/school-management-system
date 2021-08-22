@@ -5,6 +5,7 @@ import com.school.system.schoolsystem.model.Parent;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ParentServiceImpl implements ParentService{
@@ -24,13 +25,13 @@ public class ParentServiceImpl implements ParentService{
     }
 
     @Override
-    public Parent getAParent(Long parentId) {
-        return null;
+    public Optional<Parent> getAParent(Long parentId) {
+        return Optional.empty();
     }
 
     @Override
-    public Parent getParentByName(String parentName) {
-        return null;
+    public Optional<Parent> getParentByName(String parentName) {
+        return Optional.empty();
     }
 
     @Override

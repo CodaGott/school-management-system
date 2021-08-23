@@ -65,7 +65,10 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Student updateStudentInfo(Long studentId, StudentDto studentDto) {
-        return null;
+
+        Student studentToUpdate = studentRepository.getById(studentId);
+        modelMapper.map(studentDto, studentToUpdate);
+        return studentRepository.save(studentToUpdate);
     }
 
     @Override

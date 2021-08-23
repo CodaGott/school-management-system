@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ParentService {
-    Parent createParent(ParentDto parentDto,  Long adminId);
-    Parent updateParentInfo(Long parentId, ParentDto parentDto);
+    Parent createParent(ParentDto parentDto, Long studentId);
+    Parent updateParentInfo(ParentDto parentDto, Long parentId);
     List<Parent> getAllParents();
     Optional<Parent> getAParent(Long parentId);
     Optional<Parent> getParentByName(String parentName);

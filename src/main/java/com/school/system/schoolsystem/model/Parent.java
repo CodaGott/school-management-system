@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 @Data
 @Entity
@@ -28,12 +28,10 @@ public class Parent {
     @Embedded
     private Address address;
 
-    public void addStudent(Student student){
+    public void addStudent(Student... student){
         if (students == null){
             this.students = new ArrayList<>();
         }
-//        this.students.add(student);
-//        this.students.addAll(Arrays.asList(student));
-        this.students.addAll(Collections.singletonList(student));
+        this.students.addAll(Arrays.asList(student));
     }
 }

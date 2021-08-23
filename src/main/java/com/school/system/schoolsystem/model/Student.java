@@ -38,21 +38,18 @@ public class Student {
 
 //    private Map<Course, Integer> scores;
 
-    public void addTeacher(Teacher teacher){
-        if (teachers == null){
+    public void addTeacher(Teacher... teacher) {
+        if (teachers == null) {
             this.teachers = new ArrayList<>();
         }
-//        this.teachers.add(teacher);
-//        this.teachers.addAll(Collections.singletonList(teacher));
         this.teachers.addAll(Arrays.asList(teacher));
     }
 
-    public void addCourse(Course course){
-        if (courses == null){
+
+    public void addCourse(Course... course) {
+        if (courses == null) {
             this.courses = new ArrayList<>();
         }
-        this.courses.add(course);
-//        this.courses.addAll(Collections.singletonList(course));
-//        this.courses.addAll(Arrays.asList(course));
+        this.courses.addAll(Arrays.asList(course));
     }
 }

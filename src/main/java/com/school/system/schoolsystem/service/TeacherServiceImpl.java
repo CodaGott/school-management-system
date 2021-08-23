@@ -1,7 +1,12 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.TeacherDto;
-import com.school.system.schoolsystem.model.Teacher;
+import com.school.system.schoolsystem.exception.CourseException;
+import com.school.system.schoolsystem.exception.TeacherException;
+import com.school.system.schoolsystem.model.*;
+import com.school.system.schoolsystem.repository.*;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,33 +14,61 @@ import java.util.Optional;
 
 @Service
 public class TeacherServiceImpl implements TeacherService{
+
+    @Autowired
+    private TeacherRepository teacherRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private CourseRepository courseRepository;
+
     @Override
-    public Teacher createTeacher(TeacherDto teacherDto, Long adminId) {
-        return null;
+    public Teacher createTeacher(TeacherDto teacherDto, Long courseId) throws CourseException {
+        Teacher teacher = new Teacher();
+
+        Optional<Course> optionalCourse = courseRepository.findById(courseId);
+        if (optionalCourse.isPresent()){
+            modelMapper.map(teacherDto, teacher);
+            Course course = optionalCourse.get();
+            teacher.addCourse(course);
+            return teacherRepository.save(teacher);
+        }else{
+            throw new CourseException("Course with " + courseId + " id does not exist");
+        }
     }
 
     @Override
-    public Optional<Teacher> getATeacher(Long teacherId) {
-        return Optional.empty();
+    public Teacher getATeacher(Long teacherId) throws TeacherException {
+        return teacherRepository.findById(teacherId).orElseThrow(
+                () -> new TeacherException("Teacher with " + teacherId + " does not exist")
+        );
     }
 
     @Override
     public List<Teacher> getTeachers() {
-        return null;
+        return teacherRepository.findAll();
     }
 
     @Override
-    public void deleteATeacher(Long teacherId) {
-
+    public void deleteATeacher(Long teacherId) throws TeacherException {
+        Teacher teacher = teacherRepository.findById(teacherId).orElseThrow(
+                () -> new TeacherException("Teacher with " + teacherId + " does not exist"));
+        teacherRepository.delete(teacher);
     }
 
     @Override
-    public Optional<Teacher> findATeacherByName(String teacherFirstName) {
-        return Optional.empty();
+    public Teacher findATeacherByName(String teacherFirstName) throws TeacherException {
+        return teacherRepository.findByFirstName(teacherFirstName).orElseThrow(
+                () -> new TeacherException("Teacher with " + teacherFirstName + " name does not exist")
+        );
     }
 
     @Override
-    public Teacher updateTeacherInfo(Long teacherId, TeacherDto teacherDto) {
-        return null;
+    public Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) {
+        Teacher teacherToUpdate = teacherRepository.getById(teacherId);
+        modelMapper.map(teacherDto, teacherToUpdate);
+        return teacherRepository.save(teacherToUpdate);
     }
 }

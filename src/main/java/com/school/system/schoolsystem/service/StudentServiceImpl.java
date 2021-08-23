@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class StudentServiceImpl implements StudentService{
@@ -47,8 +46,9 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Optional<Student> getAStudent(Long studentId) {
-        return studentRepository.findById(studentId);
+    public Student getAStudent(Long studentId) throws StudentException {
+        return studentRepository.findById(studentId).orElseThrow(
+                () -> new StudentException("Student with " + studentId + " not present"));
     }
 
     @Override
@@ -57,8 +57,10 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Optional<Student> getStudentByName(String studentFirstName) {
-        return null;
+    public Student getStudentByName(String studentFirstName) throws StudentException {
+
+        return studentRepository.findByFirstName(studentFirstName).orElseThrow(
+                () -> new StudentException("Student with " + studentFirstName + " not present"));
     }
 
     @Override
@@ -67,7 +69,9 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public void deleteStudentById(Long studentId) {
-
+    public void deleteStudentById(Long studentId) throws StudentException {
+        Student student = studentRepository.findById(studentId).orElseThrow(
+                () -> new StudentException("Student with " + studentId + " not present"));
+        studentRepository.delete(student);
     }
 }

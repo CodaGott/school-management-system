@@ -6,13 +6,12 @@ import com.school.system.schoolsystem.exception.StudentException;
 import com.school.system.schoolsystem.model.Student;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface StudentService {
     Student createStudent(StudentDto studentDto , Long adminId) throws StudentException, AdminException;
-    Optional<Student> getAStudent(Long studentId);
+    Student getAStudent(Long studentId) throws StudentException;
     List<Student> getAllStudents();
-    Optional<Student> getStudentByName(String studentFirstName);
+    Student getStudentByName(String studentFirstName) throws StudentException;
     Student updateStudentInfo(Long studentId, StudentDto studentDto);
-    void deleteStudentById(Long studentId);
+    void deleteStudentById(Long studentId) throws StudentException;
 }

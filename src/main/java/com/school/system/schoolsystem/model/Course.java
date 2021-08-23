@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 @Data
 @Entity
@@ -32,4 +34,13 @@ public class Course {
     private List<Student> students;
     private Integer score;
     private String remark;
+
+    public void addStudent(Student student){
+        if (students == null){
+            this.students = new ArrayList<>();
+        }
+//        this.students.add(student);
+//        this.students.addAll(Arrays.asList(student));
+        this.students.addAll(Collections.singletonList(student));
+    }
 }

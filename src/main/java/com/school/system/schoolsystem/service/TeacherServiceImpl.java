@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class TeacherServiceImpl implements TeacherService{
     @Override
-    public Teacher createTeacher(TeacherDto teacherDto) {
+    public Teacher createTeacher(TeacherDto teacherDto, Long adminId) {
         return null;
     }
 

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TeacherService {
-    Teacher createTeacher(TeacherDto teacherDto);
+    Teacher createTeacher(TeacherDto teacherDto, Long adminId);
     Optional<Teacher> getATeacher(Long teacherId);
     List<Teacher> getTeachers();
     void deleteATeacher(Long teacherId);

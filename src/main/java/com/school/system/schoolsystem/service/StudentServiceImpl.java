@@ -11,7 +11,7 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService{
 
     @Override
-    public Student createStudent(StudentDto studentDto) {
+    public Student createStudent(StudentDto studentDto , Long adminId) {
         return null;
     }
 

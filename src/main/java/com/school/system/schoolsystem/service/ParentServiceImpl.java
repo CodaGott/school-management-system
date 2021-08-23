@@ -10,7 +10,7 @@ import java.util.Optional;
 @Service
 public class ParentServiceImpl implements ParentService{
     @Override
-    public Parent createParent(ParentDto parentDto) {
+    public Parent createParent(ParentDto parentDto, Long adminId) {
         return null;
     }
 

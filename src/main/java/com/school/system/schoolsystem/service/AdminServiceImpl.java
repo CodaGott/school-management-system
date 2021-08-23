@@ -36,14 +36,18 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public Admin updateAdminInfo(AdminDto adminDto, Long adminId) throws AdminException{
-        Admin adminToUpdate = adminRepository.findById(adminId).orElseThrow();
+        Admin adminToUpdate = adminRepository.findById(adminId).orElseThrow(
+                () -> new AdminException("Can't find admin with " + adminId + " id")
+        );
         modelMapper.map(adminDto, adminToUpdate);
         return adminRepository.save(adminToUpdate);
     }
 
     @Override
-    public Optional<Admin> getAdmin(Long adminId) {
-        return adminRepository.findById(adminId);
+    public Admin getAdmin(Long adminId) throws AdminException {
+        return adminRepository.findById(adminId).orElseThrow(
+                () -> new AdminException("Can't find admin with " + adminId + " id")
+        );
     }
 
     @Override
@@ -52,8 +56,10 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public Optional<Admin> getAdminByFirstName(String firstName) {
-        return adminRepository.findByFirstName(firstName);
+    public Admin getAdminByFirstName(String firstName) throws AdminException {
+        return adminRepository.findByFirstName(firstName).orElseThrow(
+                () -> new AdminException("Can't find admin with " + firstName + " as first name")
+        );
     }
 
     @Override

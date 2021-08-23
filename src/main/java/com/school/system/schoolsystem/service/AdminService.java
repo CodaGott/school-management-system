@@ -5,13 +5,12 @@ import com.school.system.schoolsystem.exception.AdminException;
 import com.school.system.schoolsystem.model.Admin;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface AdminService {
     Admin createAdmin(AdminDto adminDto) throws AdminException;
     Admin updateAdminInfo(AdminDto adminDto, Long adminId) throws AdminException;
-    Optional<Admin> getAdmin(Long adminId);
+    Admin getAdmin(Long adminId) throws AdminException;
     List<Admin> getAllAdmins();
-    Optional<Admin> getAdminByFirstName(String firstName);
+    Admin getAdminByFirstName(String firstName) throws AdminException;
     void deleteAdmin(Long adminId);
 }

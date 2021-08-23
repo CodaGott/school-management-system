@@ -1,16 +1,16 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.ParentDto;
+import com.school.system.schoolsystem.exception.ParentException;
 import com.school.system.schoolsystem.model.Parent;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ParentService {
-    Parent createParent(ParentDto parentDto, Long studentId);
+    Parent createParent(ParentDto parentDto, Long studentId) throws ParentException;
     Parent updateParentInfo(ParentDto parentDto, Long parentId);
     List<Parent> getAllParents();
-    Optional<Parent> getAParent(Long parentId);
-    Optional<Parent> getParentByName(String parentName);
-    void deleteParent(Long parentId);
+    Parent getAParent(Long parentId) throws ParentException;
+    Parent getParentByName(String parentName) throws ParentException;
+    void deleteParent(Long parentId) throws ParentException;
 }

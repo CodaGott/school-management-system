@@ -1,9 +1,12 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.ParentDto;
+import com.school.system.schoolsystem.exception.ParentException;
 import com.school.system.schoolsystem.model.Parent;
+import com.school.system.schoolsystem.model.Student;
 import com.school.system.schoolsystem.repository.ParentRepository;
 import com.school.system.schoolsystem.repository.StudentRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,36 +22,52 @@ public class ParentServiceImpl implements ParentService{
     @Autowired
     private StudentRepository studentRepository;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     @Override
-    public Parent createParent(ParentDto parentDto, Long studentId) {
+    public Parent createParent(ParentDto parentDto, Long studentId) throws ParentException {
+        Parent parent = new Parent();
 
-
-
-        return null;
+        Optional<Student> optionalStudent = studentRepository.findById(studentId);
+        if (optionalStudent.isPresent()){
+            modelMapper.map(parentDto, parent);
+            Student student = optionalStudent.get();
+            parent.addStudent(student);
+            return parentRepository.save(parent);
+        }else {
+            throw new ParentException("Student with " + studentId + " does not exist");
+        }
     }
 
     @Override
     public Parent updateParentInfo(ParentDto parentDto, Long parentId) {
-        return null;
+        Parent parentToUpdate = parentRepository.getById(parentId);
+        modelMapper.map(parentDto, parentToUpdate);
+        return parentRepository.save(parentToUpdate);
     }
 
     @Override
     public List<Parent> getAllParents() {
-        return null;
+        return parentRepository.findAll();
     }
 
     @Override
-    public Optional<Parent> getAParent(Long parentId) {
-        return Optional.empty();
+    public Parent getAParent(Long parentId) throws ParentException {
+        return parentRepository.findById(parentId).orElseThrow(
+                () -> new ParentException("Parent with " +parentId + " id not found"));
     }
 
     @Override
-    public Optional<Parent> getParentByName(String parentName) {
-        return Optional.empty();
+    public Parent getParentByName(String parentName) throws ParentException {
+        return parentRepository.findByFirstName(parentName).orElseThrow(
+                () -> new ParentException("Parent with " + parentName + " id not found"));
     }
 
     @Override
-    public void deleteParent(Long parentId) {
-
+    public void deleteParent(Long parentId) throws ParentException {
+        Parent parent = parentRepository.findById(parentId).orElseThrow(
+                () -> new ParentException("Parent with " +parentId + " id not found"));
+        parentRepository.delete(parent);
     }
 }

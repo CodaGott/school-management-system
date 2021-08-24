@@ -36,27 +36,38 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
-    public Optional<ClassRoom> getAClass(Long classId) {
-        return Optional.empty();
+    public ClassRoom getAClass(Long classId) {
+        return classRepository.findById(classId).orElseThrow(
+                () -> new ClassCastException("Class with " + classId + " id does not exist"));
     }
 
     @Override
-    public Optional<ClassRoom> updateClassInfo(Long classId, ClassDto classDto) {
-        return Optional.empty();
+    public ClassRoom updateClassInfo(ClassDto classDto, Long classId) {
+        ClassRoom classToUpdate = classRepository.getById(classId);
+            modelMapper.map(classDto, classToUpdate);
+        return classRepository.save(classToUpdate);
     }
 
     @Override
     public List<ClassRoom> getAllClasses() {
-        return null;
+        return classRepository.findAll();
     }
 
     @Override
-    public void deleteClass(Long classId) {
-
+    public void deleteClass(Long classId) throws ClassException {
+        ClassRoom classToDelete = classRepository.findById(classId).orElseThrow(
+                () -> new ClassException("Class with " + classId + " id does not exist"));
+        classRepository.delete(classToDelete);
     }
 
     @Override
     public Optional<ClassRoom> getAClassByName(String className) {
-        return Optional.empty();
+        Optional<ClassRoom> classNameExists = classRepository.findByName(className);
+        if (classNameExists.isPresent()){
+            return classRepository.findByName(className);
+        }else {
+            throw new ClassCastException("Class with name " + className + " does not exist");
+        }
+
     }
 }

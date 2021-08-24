@@ -1,22 +1,51 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.CourseDto;
+import com.school.system.schoolsystem.exception.CourseException;
 import com.school.system.schoolsystem.model.Course;
+import com.school.system.schoolsystem.model.Teacher;
+import com.school.system.schoolsystem.repository.CourseRepository;
+import com.school.system.schoolsystem.repository.TeacherRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourseServiceImpl implements CourseService{
+
+    @Autowired
+    private TeacherRepository teacherRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+
     @Override
-    public Course createCourse(Long teacherId, CourseDto courseDto) {
-        return null;
+    public Course createCourse(CourseDto courseDto, Long teacherId) throws CourseException {
+        Course course = new Course();
+        Teacher teacher = new Teacher();
+
+        boolean teacherExists = teacherRepository.existsById(teacherId);
+
+        if (teacherExists){
+            modelMapper.map(courseDto, course);
+            teacher.addCourse(course);
+            return courseRepository.save(course);
+        }else{
+            throw new CourseException("Can't create course without a teacher");
+        }
     }
 
     @Override
-    public Course updateCourseInfo(Long courseId, CourseDto courseDto) {
-        return null;
+    public Course updateCourseInfo(CourseDto courseDto, Long courseId) {
+        Course courseToUpdate = courseRepository.getById(courseId);
+        modelMapper.map(courseDto, courseToUpdate);
+        return courseRepository.save(courseToUpdate);
     }
 
     @Override
@@ -25,17 +54,21 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Optional<Course> getACourse(Long courseId) {
-        return Optional.empty();
+    public Course getACourse(Long courseId) throws CourseException {
+        return courseRepository.findById(courseId).orElseThrow(
+                () -> new CourseException("Course with " + courseId + " id does not exist"));
     }
 
     @Override
-    public Optional<Course> getACourseByName(String courseName) {
-        return null;
+    public Course getACourseByName(String courseName) throws CourseException {
+        return courseRepository.findByName(courseName).orElseThrow(
+                () -> new CourseException("Course with " + courseName + " name does not exist"));
     }
 
     @Override
-    public void deleteCourse(Long id) {
-
+    public void deleteCourse(Long courseId) throws CourseException {
+        Course courseToDelete = courseRepository.findById(courseId).orElseThrow(
+                () -> new CourseException("Course with " + courseId + " id does not exist"));
+        courseRepository.delete(courseToDelete);
     }
 }

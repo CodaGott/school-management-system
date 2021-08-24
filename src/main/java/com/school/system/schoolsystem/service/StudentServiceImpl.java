@@ -29,11 +29,6 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public Student createStudent(StudentDto studentDto , String studentEmail) throws StudentException, AdminException {
         Student student = new Student();
-//
-//        boolean studentExist = adminRepository.findByEmail(studentEmail).isPresent();
-//        if (studentExist){
-//            throw new StudentException("Student with the email already exist");
-//        }
 
         boolean studentExists = studentRepository.findByEmail(student.getEmail()).isPresent();
 
@@ -64,7 +59,7 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student updateStudentInfo(Long studentId, StudentDto studentDto) {
+    public Student updateStudentInfo(StudentDto studentDto, Long studentId) {
 
         Student studentToUpdate = studentRepository.getById(studentId);
         modelMapper.map(studentDto, studentToUpdate);

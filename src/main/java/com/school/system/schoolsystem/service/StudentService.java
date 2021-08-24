@@ -12,6 +12,6 @@ public interface StudentService {
     Student getAStudent(Long studentId) throws StudentException;
     List<Student> getAllStudents();
     Student getStudentByName(String studentFirstName) throws StudentException;
-    Student updateStudentInfo(Long studentId, StudentDto studentDto);
+    Student updateStudentInfo(StudentDto studentDto, Long studentId);
     void deleteStudentById(Long studentId) throws StudentException;
 }

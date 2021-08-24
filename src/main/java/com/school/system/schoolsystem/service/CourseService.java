@@ -1,16 +1,16 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.CourseDto;
+import com.school.system.schoolsystem.exception.CourseException;
 import com.school.system.schoolsystem.model.Course;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CourseService {
-    Course createCourse(Long teacherId, CourseDto courseDto);
-    Course updateCourseInfo(Long courseId, CourseDto courseDto);
+    Course createCourse(CourseDto courseDto, Long teacherId) throws CourseException;
+    Course updateCourseInfo(CourseDto courseDto, Long courseId);
     List<Course> getAllCourse();
-    Optional<Course> getACourse(Long courseId);
-    Optional<Course> getACourseByName(String courseName);
-    void deleteCourse(Long id);
+    Course getACourse(Long courseId) throws CourseException;
+    Course getACourseByName(String courseName) throws CourseException;
+    void deleteCourse(Long id) throws CourseException;
 }

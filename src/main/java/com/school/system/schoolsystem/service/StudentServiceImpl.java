@@ -27,13 +27,13 @@ public class StudentServiceImpl implements StudentService{
 
 
     @Override
-    public Student createStudent(StudentDto studentDto , Long adminId) throws StudentException, AdminException {
+    public Student createStudent(StudentDto studentDto , String studentEmail) throws StudentException, AdminException {
         Student student = new Student();
-
-        boolean adminExist = adminRepository.findById(adminId).isPresent();
-        if (adminExist){
-            throw new AdminException("Admin with id does not exist");
-        }
+//
+//        boolean studentExist = adminRepository.findByEmail(studentEmail).isPresent();
+//        if (studentExist){
+//            throw new StudentException("Student with the email already exist");
+//        }
 
         boolean studentExists = studentRepository.findByEmail(student.getEmail()).isPresent();
 

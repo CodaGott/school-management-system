@@ -8,7 +8,7 @@ import com.school.system.schoolsystem.model.Student;
 import java.util.List;
 
 public interface StudentService {
-    Student createStudent(StudentDto studentDto , Long adminId) throws StudentException, AdminException;
+    Student createStudent(StudentDto studentDto , String studentEmail) throws StudentException, AdminException;
     Student getAStudent(Long studentId) throws StudentException;
     List<Student> getAllStudents();
     Student getStudentByName(String studentFirstName) throws StudentException;

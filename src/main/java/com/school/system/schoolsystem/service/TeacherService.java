@@ -13,6 +13,6 @@ public interface TeacherService {
     List<Teacher> getTeachers();
     void deleteATeacher(Long teacherId) throws TeacherException;
     Teacher findATeacherByName(String teacherFirstName) throws TeacherException;
-    Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId );
+    Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) throws TeacherException;
 
 }

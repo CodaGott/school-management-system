@@ -5,6 +5,7 @@ import com.school.system.schoolsystem.exception.CourseException;
 import com.school.system.schoolsystem.exception.TeacherException;
 import com.school.system.schoolsystem.model.*;
 import com.school.system.schoolsystem.repository.*;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@NoArgsConstructor
 public class TeacherServiceImpl implements TeacherService{
 
     @Autowired
     private TeacherRepository teacherRepository;
 
-    @Autowired
+
     private ModelMapper modelMapper;
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    public TeacherServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public Teacher createTeacher(TeacherDto teacherDto, Long courseId) throws CourseException {
@@ -41,9 +48,16 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     public Teacher getATeacher(Long teacherId) throws TeacherException {
-        return teacherRepository.findById(teacherId).orElseThrow(
-                () -> new TeacherException("Teacher with " + teacherId + " does not exist")
-        );
+//        return teacherRepository.findById(teacherId).orElseThrow(
+//                () -> new TeacherException("Teacher with " + teacherId + " does not exist")
+//        );
+
+        Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherId);
+        if (optionalTeacher.isPresent()){
+            return optionalTeacher.get();
+        }else {
+            throw new TeacherException("Teacher with " + teacherId + " does not exist");
+        }
     }
 
     @Override
@@ -66,9 +80,14 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) {
-        Teacher teacherToUpdate = teacherRepository.getById(teacherId);
+    public Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) throws TeacherException {
+//        Teacher teacherToUpdate = teacherRepository.getById(teacherId);
+        Teacher teacherToUpdate = teacherRepository.findById(teacherId).orElseThrow();
+        System.out.println("teacher to update");
+        System.out.println(teacherToUpdate);
         modelMapper.map(teacherDto, teacherToUpdate);
+        System.out.println("mapped");
+        System.out.println(teacherToUpdate);
         return teacherRepository.save(teacherToUpdate);
     }
 }

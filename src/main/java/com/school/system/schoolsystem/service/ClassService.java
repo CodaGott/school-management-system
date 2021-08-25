@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClassService {
-    ClassRoom createClass(ClassDto classDto, String name) throws ClassException;
-    ClassRoom getAClass(Long classId);
-    ClassRoom updateClassInfo(ClassDto classDto, Long classId);
+    ClassRoom createClass(ClassDto classDto) throws ClassException;
+    ClassRoom getAClass(Long classId) throws ClassException;
+    ClassRoom updateClassInfo(ClassDto classDto, Long classId) throws ClassException;
     List<ClassRoom> getAllClasses();
     void deleteClass(Long classId) throws ClassException;
     Optional<ClassRoom> getAClassByName(String className);

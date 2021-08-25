@@ -4,6 +4,7 @@ import com.school.system.schoolsystem.dto.ClassDto;
 import com.school.system.schoolsystem.exception.ClassException;
 import com.school.system.schoolsystem.model.ClassRoom;
 import com.school.system.schoolsystem.repository.ClassRepository;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@NoArgsConstructor
 public class ClassServiceImpl implements ClassService{
 
     @Autowired
@@ -20,12 +22,18 @@ public class ClassServiceImpl implements ClassService{
     @Autowired
     private ModelMapper modelMapper;
 
+    public ClassServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
 
     @Override
-    public ClassRoom createClass(ClassDto classDto, String className) throws ClassException {
+    public ClassRoom createClass(ClassDto classDto) throws ClassException {
         ClassRoom classRoom = new ClassRoom();
 
-        boolean classExists = classRepository.findByName(classRoom.getName()).isPresent();
+//        Optional<ClassRoom> optionalClassRoom = classRepository.findByName(classDto.getName());
+
+        boolean classExists = classRepository.findByName(classDto.getName()).isPresent();
 
         if (classExists){
             throw new ClassException("Class with name already exists");
@@ -36,14 +44,15 @@ public class ClassServiceImpl implements ClassService{
     }
 
     @Override
-    public ClassRoom getAClass(Long classId) {
+    public ClassRoom getAClass(Long classId) throws ClassException {
         return classRepository.findById(classId).orElseThrow(
-                () -> new ClassCastException("Class with " + classId + " id does not exist"));
+                () -> new ClassException("Class with " + classId + " id does not exist"));
     }
 
     @Override
-    public ClassRoom updateClassInfo(ClassDto classDto, Long classId) {
-        ClassRoom classToUpdate = classRepository.getById(classId);
+    public ClassRoom updateClassInfo(ClassDto classDto, Long classId) throws ClassException {
+        ClassRoom classToUpdate = classRepository.findById(classId).orElseThrow(
+                () -> new ClassException("Teacher with " + classId + " does not exist"));
             modelMapper.map(classDto, classToUpdate);
         return classRepository.save(classToUpdate);
     }

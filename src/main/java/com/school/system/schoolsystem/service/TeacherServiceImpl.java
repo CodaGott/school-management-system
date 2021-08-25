@@ -82,7 +82,9 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) throws TeacherException {
 //        Teacher teacherToUpdate = teacherRepository.getById(teacherId);
-        Teacher teacherToUpdate = teacherRepository.findById(teacherId).orElseThrow();
+        Teacher teacherToUpdate = teacherRepository.findById(teacherId).orElseThrow(
+                () -> new TeacherException("Teacher with " + teacherId + " does not exist")
+        );
         modelMapper.map(teacherDto, teacherToUpdate);
         return teacherRepository.save(teacherToUpdate);
     }

@@ -83,11 +83,7 @@ public class TeacherServiceImpl implements TeacherService{
     public Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) throws TeacherException {
 //        Teacher teacherToUpdate = teacherRepository.getById(teacherId);
         Teacher teacherToUpdate = teacherRepository.findById(teacherId).orElseThrow();
-        System.out.println("teacher to update");
-        System.out.println(teacherToUpdate);
         modelMapper.map(teacherDto, teacherToUpdate);
-        System.out.println("mapped");
-        System.out.println(teacherToUpdate);
         return teacherRepository.save(teacherToUpdate);
     }
 }

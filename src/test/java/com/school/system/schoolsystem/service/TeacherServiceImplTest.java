@@ -100,7 +100,6 @@ class TeacherServiceImplTest {
         verify(teacherRepository, times(1)).save(teacherArgumentCaptor.capture());
 
         Teacher capturedTeacher = teacherArgumentCaptor.getValue();
-        System.out.println(capturedTeacher);
         assertThat(capturedTeacher.getFirstName()).isEqualTo(teacherDto.getFirstName());
         // explicitly stating the value of firstName in the line above will return a null value because we are
         // injecting the modelMapper her and when injected the setSkipNullEnabled(true) method can't be access.

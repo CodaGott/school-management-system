@@ -12,5 +12,5 @@ public interface AdminService {
     Admin getAdmin(Long adminId) throws AdminException;
     List<Admin> getAllAdmins();
     Admin getAdminByFirstName(String firstName) throws AdminException;
-    void deleteAdmin(Long adminId);
+    void deleteAdmin(Long adminId) throws AdminException;
 }

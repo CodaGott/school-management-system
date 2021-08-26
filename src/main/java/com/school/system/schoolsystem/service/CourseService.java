@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CourseService {
     Course createCourse(CourseDto courseDto, Long teacherId) throws CourseException;
-    Course updateCourseInfo(CourseDto courseDto, Long courseId);
+    Course updateCourseInfo(CourseDto courseDto, Long courseId) throws CourseException;
     List<Course> getAllCourse();
     Course getACourse(Long courseId) throws CourseException;
     Course getACourseByName(String courseName) throws CourseException;

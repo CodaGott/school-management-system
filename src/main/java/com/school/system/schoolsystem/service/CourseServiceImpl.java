@@ -6,13 +6,16 @@ import com.school.system.schoolsystem.model.Course;
 import com.school.system.schoolsystem.model.Teacher;
 import com.school.system.schoolsystem.repository.CourseRepository;
 import com.school.system.schoolsystem.repository.TeacherRepository;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@NoArgsConstructor
 public class CourseServiceImpl implements CourseService{
 
     @Autowired
@@ -24,28 +27,36 @@ public class CourseServiceImpl implements CourseService{
     @Autowired
     private ModelMapper modelMapper;
 
+    public CourseServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
 
     @Override
     public Course createCourse(CourseDto courseDto, Long teacherId) throws CourseException {
         Course course = new Course();
-        Teacher teacher = new Teacher();
+        Optional<Teacher> optionalTeacher = teacherRepository.findById(teacherId);
 
-        boolean teacherExists = teacherRepository.existsById(teacherId);
-
-        if (teacherExists){
+        if (optionalTeacher.isPresent()){
             modelMapper.map(courseDto, course);
-            teacher.addCourse(course);
-            return courseRepository.save(course);
+            Teacher teacher = optionalTeacher.get();
+            Course savedCourse = courseRepository.save(course);
+            teacher.addCourse(savedCourse);
+            teacherRepository.save(teacher);
+            return savedCourse;
         }else{
             throw new CourseException("Can't create course without a teacher");
         }
     }
 
     @Override
-    public Course updateCourseInfo(CourseDto courseDto, Long courseId) {
-        Course courseToUpdate = courseRepository.getById(courseId);
-        modelMapper.map(courseDto, courseToUpdate);
-        return courseRepository.save(courseToUpdate);
+    public Course updateCourseInfo(CourseDto courseDto, Long courseId) throws CourseException {
+        Course courseToUpdate = courseRepository.findById(courseId).orElseThrow(
+                () -> new CourseException("Teacher with " + courseId + " does not exist")
+        );
+
+            modelMapper.map(courseDto, courseToUpdate);
+            return courseRepository.save(courseToUpdate);
     }
 
     @Override

@@ -4,8 +4,8 @@ import com.school.system.schoolsystem.dto.StudentDto;
 import com.school.system.schoolsystem.exception.AdminException;
 import com.school.system.schoolsystem.exception.StudentException;
 import com.school.system.schoolsystem.model.Student;
-import com.school.system.schoolsystem.repository.AdminRepository;
 import com.school.system.schoolsystem.repository.StudentRepository;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,21 +13,24 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@NoArgsConstructor
 public class StudentServiceImpl implements StudentService{
 
 
     @Autowired
     private StudentRepository studentRepository;
 
-    @Autowired
-    private AdminRepository adminRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
+    public StudentServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
 
     @Override
-    public Student createStudent(StudentDto studentDto , String studentEmail) throws StudentException, AdminException {
+    public Student createStudent(StudentDto studentDto) throws StudentException, AdminException {
         Student student = new Student();
 
         boolean studentExists = studentRepository.findByEmail(student.getEmail()).isPresent();
@@ -59,9 +62,10 @@ public class StudentServiceImpl implements StudentService{
     }
 
     @Override
-    public Student updateStudentInfo(StudentDto studentDto, Long studentId) {
+    public Student updateStudentInfo(StudentDto studentDto, Long studentId) throws StudentException {
 
-        Student studentToUpdate = studentRepository.getById(studentId);
+        Student studentToUpdate = studentRepository.findById(studentId).orElseThrow(
+                () -> new StudentException("Student with " + studentId + " not present"));
         modelMapper.map(studentDto, studentToUpdate);
         return studentRepository.save(studentToUpdate);
     }

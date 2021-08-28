@@ -113,4 +113,19 @@ class ParentServiceImplTest {
         assertThat(parentService.getParentByName(parent.getFirstName())).isEqualTo(parent);
     }
 
+    @Test
+    void testParentCanBeDeleted() throws ParentException {
+        Parent parent = new Parent();
+        parent.setFirstName("John");
+        parent.setEmail("Jonh@email.com");
+        parent.setId(9L);
+
+        when(parentRepository.findById(parent.getId())).thenReturn(Optional.of(parent));
+
+        parentService.deleteParent(parent.getId());
+
+        verify(parentRepository).delete(parent);
+
+    }
+
 }

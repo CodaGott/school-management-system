@@ -47,8 +47,9 @@ public class ParentServiceImpl implements ParentService{
     }
 
     @Override
-    public Parent updateParentInfo(ParentDto parentDto, Long parentId) {
-        Parent parentToUpdate = parentRepository.getById(parentId);
+    public Parent updateParentInfo(ParentDto parentDto, Long parentId) throws ParentException {
+        Parent parentToUpdate = parentRepository.findById(parentId).orElseThrow(
+                () -> new ParentException("Parent with " +parentId + " id not found"));
         modelMapper.map(parentDto, parentToUpdate);
         return parentRepository.save(parentToUpdate);
     }

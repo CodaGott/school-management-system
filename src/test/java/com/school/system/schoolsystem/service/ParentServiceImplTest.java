@@ -63,4 +63,28 @@ class ParentServiceImplTest {
 
     }
 
+    @Test
+    void testParentInfoCanBeUpdated() throws ParentException {
+        Parent parent = new Parent();
+        parent.setEmail("Jonh@email.com");
+        Long parentId = 9L;
+
+        ParentDto parentToUpdate = new ParentDto();
+        parentToUpdate.setEmail("Jonny@email.com");
+
+        when(parentRepository.findById(parentId)).thenReturn(Optional.of(parent));
+
+        parentService.updateParentInfo(parentToUpdate, parentId);
+
+        ArgumentCaptor<Parent> parentArgumentCaptor = ArgumentCaptor.forClass(Parent.class);
+
+        verify(parentRepository, times(1)).save(parentArgumentCaptor.capture());
+
+        Parent capturedParent = parentArgumentCaptor.getValue();
+
+        assertThat(capturedParent.getEmail()).isEqualTo(parentToUpdate.getEmail());
+
+        assertThat(capturedParent.getEmail()).isEqualTo("Jonny@email.com");
+    }
+
 }

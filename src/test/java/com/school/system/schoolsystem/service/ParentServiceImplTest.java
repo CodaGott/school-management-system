@@ -15,6 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -126,6 +128,23 @@ class ParentServiceImplTest {
 
         verify(parentRepository).delete(parent);
 
+    }
+
+    @Test
+    void testCanGetAllParents(){
+        Parent parent = new Parent();
+        Parent parent1 = new Parent();
+        Parent parent2 = new Parent();
+
+        List<Parent> parents = new ArrayList<>();
+        parents.add(parent);
+        parents.add(parent1);
+        parents.add(parent2);
+
+        when(parentRepository.findAll()).thenReturn(parents);
+        parentService.getAllParents();
+
+        assertThat(parentRepository.findAll().size()).isEqualTo(3);
     }
 
 }

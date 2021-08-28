@@ -6,6 +6,7 @@ import com.school.system.schoolsystem.model.Parent;
 import com.school.system.schoolsystem.model.Student;
 import com.school.system.schoolsystem.repository.ParentRepository;
 import com.school.system.schoolsystem.repository.StudentRepository;
+import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@NoArgsConstructor
 public class ParentServiceImpl implements ParentService{
 
     @Autowired
@@ -24,6 +26,10 @@ public class ParentServiceImpl implements ParentService{
 
     @Autowired
     private ModelMapper modelMapper;
+
+    public ParentServiceImpl(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @Override
     public Parent createParent(ParentDto parentDto, Long studentId) throws ParentException {

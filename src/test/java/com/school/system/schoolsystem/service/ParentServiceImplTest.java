@@ -87,4 +87,17 @@ class ParentServiceImplTest {
         assertThat(capturedParent.getEmail()).isEqualTo("Jonny@email.com");
     }
 
+
+    @Test
+    void testParentCanBeFoundById() throws ParentException {
+        Parent parent = new Parent();
+        parent.setEmail("Jonh@email.com");
+        parent.setId(9L);
+
+        when(parentRepository.findById(parent.getId())).thenReturn(Optional.of(parent));
+        parentService.getAParent(parent.getId());
+
+        assertThat(parentService.getAParent(parent.getId())).isEqualTo(parent);
+    }
+
 }

@@ -13,5 +13,5 @@ public interface ClassService {
     ClassRoom updateClassInfo(ClassDto classDto, Long classId) throws ClassException;
     List<ClassRoom> getAllClasses();
     void deleteClass(Long classId) throws ClassException;
-    Optional<ClassRoom> getAClassByName(String className);
+    Optional<ClassRoom> getAClassByName(String className) throws ClassException;
 }

@@ -9,7 +9,7 @@ import java.util.List;
 public interface ParentService {
     Parent createParent(ParentDto parentDto, Long studentId) throws ParentException;
     Parent updateParentInfo(ParentDto parentDto, Long parentId) throws ParentException;
-    List<Parent> getAllParents();
+    List<Parent> getAllParents() throws ParentException;
     Parent getAParent(Long parentId) throws ParentException;
     Parent getParentByName(String parentName) throws ParentException;
     void deleteParent(Long parentId) throws ParentException;

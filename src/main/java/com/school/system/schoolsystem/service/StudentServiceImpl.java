@@ -1,7 +1,6 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.StudentDto;
-import com.school.system.schoolsystem.exception.AdminException;
 import com.school.system.schoolsystem.exception.StudentException;
 import com.school.system.schoolsystem.model.Student;
 import com.school.system.schoolsystem.repository.StudentRepository;
@@ -30,7 +29,7 @@ public class StudentServiceImpl implements StudentService{
 
 
     @Override
-    public Student createStudent(StudentDto studentDto) throws StudentException, AdminException {
+    public Student createStudent(StudentDto studentDto) throws StudentException {
         Student student = new Student();
 
         boolean studentExists = studentRepository.findByEmail(student.getEmail()).isPresent();

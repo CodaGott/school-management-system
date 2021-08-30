@@ -56,7 +56,7 @@ class TeacherServiceImplTest {
 
 
     @Test
-    void testThatTeacherCanBeCreated() throws CourseException {
+    void testThatTeacherCanBeCreated() throws CourseException, TeacherException {
         //Given
         TeacherDto teacherDto = new TeacherDto();
 

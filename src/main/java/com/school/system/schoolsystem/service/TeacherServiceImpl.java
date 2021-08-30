@@ -32,7 +32,7 @@ public class TeacherServiceImpl implements TeacherService{
     }
 
     @Override
-    public Teacher createTeacher(TeacherDto teacherDto, Long courseId) throws CourseException {
+    public Teacher createTeacher(TeacherDto teacherDto, Long courseId) throws CourseException, TeacherException {
         Teacher teacher = new Teacher();
 
         Optional<Course> optionalCourse = courseRepository.findById(courseId);

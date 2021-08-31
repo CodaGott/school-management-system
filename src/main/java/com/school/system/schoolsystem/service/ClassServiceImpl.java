@@ -3,7 +3,13 @@ package com.school.system.schoolsystem.service;
 import com.school.system.schoolsystem.dto.ClassDto;
 import com.school.system.schoolsystem.exception.ClassException;
 import com.school.system.schoolsystem.model.ClassRoom;
+import com.school.system.schoolsystem.model.Course;
+import com.school.system.schoolsystem.model.Student;
+import com.school.system.schoolsystem.model.Teacher;
 import com.school.system.schoolsystem.repository.ClassRepository;
+import com.school.system.schoolsystem.repository.CourseRepository;
+import com.school.system.schoolsystem.repository.StudentRepository;
+import com.school.system.schoolsystem.repository.TeacherRepository;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,15 @@ public class ClassServiceImpl implements ClassService{
 
     @Autowired
     private ClassRepository classRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -92,16 +107,34 @@ public class ClassServiceImpl implements ClassService{
 
     @Override
     public void addStudentToClass(Long studentId, Long classId) {
+        Student studentToAdd = studentRepository.findById(studentId).orElseThrow();
 
+        ClassRoom classToAddStudent = classRepository.findById(classId).orElseThrow();
+        classToAddStudent.addStudent(studentToAdd);
+        saveClass(classToAddStudent);
     }
 
     @Override
     public void addCourseToClass(Long courseId, Long classId) {
 
+        Course courseToAdd = courseRepository.findById(courseId).orElseThrow();
+        ClassRoom classToAddCourse = classRepository.findById(classId).orElseThrow();
+
+        classToAddCourse.addCourse(courseToAdd);
+        saveClass(classToAddCourse);
+    }
+
+    private ClassRoom saveClass(ClassRoom classRoom){
+        return classRepository.save(classRoom);
     }
 
     @Override
     public void addTeacherToClass(Long teacherId, Long classId) {
 
+        Teacher teacherToAdd = teacherRepository.findById(classId).orElseThrow();
+        ClassRoom classToAddTeacher = classRepository.findById(classId).orElseThrow();
+
+        classToAddTeacher.addTeacher(teacherToAdd);
+        saveClass(classToAddTeacher);
     }
 }

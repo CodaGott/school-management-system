@@ -13,4 +13,5 @@ public interface CourseService {
     Course getACourse(Long courseId) throws CourseException;
     Course getACourseByName(String courseName) throws CourseException;
     void deleteCourse(Long id) throws CourseException;
+    void addStudentToCourse(Long studentId, Long courseId);
 }

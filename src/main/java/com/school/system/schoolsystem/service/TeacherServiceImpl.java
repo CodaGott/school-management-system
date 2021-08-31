@@ -88,4 +88,14 @@ public class TeacherServiceImpl implements TeacherService{
         modelMapper.map(teacherDto, teacherToUpdate);
         return teacherRepository.save(teacherToUpdate);
     }
+
+    @Override
+    public void addClassToTeacher(Long classId, Long teacherId) {
+
+    }
+
+    @Override
+    public void addStudentToClass(Long studentId, Long teacherId) {
+
+    }
 }

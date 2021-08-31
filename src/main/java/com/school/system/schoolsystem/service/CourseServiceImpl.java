@@ -82,4 +82,9 @@ public class CourseServiceImpl implements CourseService{
                 () -> new CourseException("Course with " + courseId + " id does not exist"));
         courseRepository.delete(courseToDelete);
     }
+
+    @Override
+    public void addStudentToCourse(Long studentId, Long courseId) {
+
+    }
 }

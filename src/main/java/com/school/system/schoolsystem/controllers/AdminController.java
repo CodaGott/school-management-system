@@ -49,7 +49,7 @@ public class AdminController {
         }
     }
 
-    @PutMapping("/edit/{adminId}")
+    @PutMapping("/update/{adminId}")
     public ResponseEntity<?> updateAdminInfo(@RequestBody AdminDto adminDto, @PathVariable Long adminId){
         try {
             return new ResponseEntity<>(adminService.updateAdminInfo(adminDto, adminId), HttpStatus.ACCEPTED);

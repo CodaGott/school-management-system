@@ -13,4 +13,6 @@ public interface StudentService {
     Student getStudentByName(String studentFirstName) throws StudentException;
     Student updateStudentInfo(StudentDto studentDto, Long studentId) throws StudentException;
     void deleteStudentById(Long studentId) throws StudentException;
+    void addTeacherToStudent(Long teacherId, Long studentId);
+    void addCourseToStudent(Long courseId, Long studentId);
 }

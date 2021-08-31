@@ -53,6 +53,16 @@ public class ClassServiceImpl implements ClassService{
     public ClassRoom updateClassInfo(ClassDto classDto, Long classId) throws ClassException {
         ClassRoom classToUpdate = classRepository.findById(classId).orElseThrow(
                 () -> new ClassException("Teacher with " + classId + " does not exist"));
+
+//        Course course = new Course();
+//        classToUpdate.addCourse(course);
+//
+//        Student student = new Student();
+//        classToUpdate.addStudent(student);
+//
+//        Teacher teacher = new Teacher();
+//        classToUpdate.addTeacher(teacher);
+
             modelMapper.map(classDto, classToUpdate);
         return classRepository.save(classToUpdate);
     }
@@ -77,6 +87,21 @@ public class ClassServiceImpl implements ClassService{
         }else {
             throw new ClassCastException("Class with name " + className + " does not exist");
         }
+
+    }
+
+    @Override
+    public void addStudentToClass(Long studentId, Long classId) {
+
+    }
+
+    @Override
+    public void addCourseToClass(Long courseId, Long classId) {
+
+    }
+
+    @Override
+    public void addTeacherToClass(Long teacherId, Long classId) {
 
     }
 }

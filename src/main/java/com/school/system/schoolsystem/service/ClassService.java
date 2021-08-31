@@ -14,4 +14,8 @@ public interface ClassService {
     List<ClassRoom> getAllClasses();
     void deleteClass(Long classId) throws ClassException;
     Optional<ClassRoom> getAClassByName(String className) throws ClassException;
+    void addStudentToClass(Long studentId, Long classId);
+    void addCourseToClass(Long courseId, Long classId);
+    void addTeacherToClass(Long teacherId, Long classId);
+
 }

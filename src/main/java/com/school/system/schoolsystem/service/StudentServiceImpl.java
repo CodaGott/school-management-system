@@ -75,4 +75,14 @@ public class StudentServiceImpl implements StudentService{
                 () -> new StudentException("Student with " + studentId + " not present"));
         studentRepository.delete(student);
     }
+
+    @Override
+    public void addTeacherToStudent(Long teacherId, Long studentId) {
+
+    }
+
+    @Override
+    public void addCourseToStudent(Long courseId, Long studentId) {
+
+    }
 }

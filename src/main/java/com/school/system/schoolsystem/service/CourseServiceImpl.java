@@ -3,8 +3,10 @@ package com.school.system.schoolsystem.service;
 import com.school.system.schoolsystem.dto.CourseDto;
 import com.school.system.schoolsystem.exception.CourseException;
 import com.school.system.schoolsystem.model.Course;
+import com.school.system.schoolsystem.model.Student;
 import com.school.system.schoolsystem.model.Teacher;
 import com.school.system.schoolsystem.repository.CourseRepository;
+import com.school.system.schoolsystem.repository.StudentRepository;
 import com.school.system.schoolsystem.repository.TeacherRepository;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,6 +25,9 @@ public class CourseServiceImpl implements CourseService{
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -85,6 +90,15 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public void addStudentToCourse(Long studentId, Long courseId) {
+        Student studentToAdd = studentRepository.findById(studentId).orElseThrow();
 
+        Course courseToAddStudentTo = courseRepository.findById(courseId).orElseThrow();
+
+        courseToAddStudentTo.addStudent(studentToAdd);
+        saveCourse(courseToAddStudentTo);
+    }
+
+    private Course saveCourse(Course course){
+        return courseRepository.save(course);
     }
 }

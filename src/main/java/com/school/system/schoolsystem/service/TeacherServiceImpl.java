@@ -20,6 +20,12 @@ public class TeacherServiceImpl implements TeacherService{
     @Autowired
     private TeacherRepository teacherRepository;
 
+    @Autowired
+    private StudentRepository studentRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
+
 
     private ModelMapper modelMapper;
 
@@ -92,10 +98,25 @@ public class TeacherServiceImpl implements TeacherService{
     @Override
     public void addClassToTeacher(Long classId, Long teacherId) {
 
+        ClassRoom classToAdd = classRepository.findById(classId).orElseThrow();
+        Teacher teacherToAddTo = teacherRepository.findById(teacherId).orElseThrow();
+
+        teacherToAddTo.addClass(classToAdd);
+        saveTeacher(teacherToAddTo);
+
     }
 
     @Override
-    public void addStudentToClass(Long studentId, Long teacherId) {
+    public void addStudentToTeacher(Long studentId, Long teacherId) {
+        Student studentToAdd = studentRepository.findById(studentId).orElseThrow();
+        Teacher teacherToAddTo = teacherRepository.findById(teacherId).orElseThrow();
 
+        teacherToAddTo.addStudent(studentToAdd);
+        saveTeacher(teacherToAddTo);
+
+    }
+
+    private Teacher saveTeacher(Teacher teacher){
+        return teacherRepository.save(teacher);
     }
 }

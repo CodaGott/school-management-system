@@ -15,6 +15,6 @@ public interface TeacherService {
     Teacher findATeacherByName(String teacherFirstName) throws TeacherException;
     Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) throws TeacherException;
     void addClassToTeacher(Long classId, Long teacherId);
-    void addStudentToClass(Long studentId, Long teacherId);
+    void addStudentToTeacher(Long studentId, Long teacherId);
 
 }

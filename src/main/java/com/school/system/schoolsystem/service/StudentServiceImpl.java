@@ -2,8 +2,12 @@ package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.StudentDto;
 import com.school.system.schoolsystem.exception.StudentException;
+import com.school.system.schoolsystem.model.Course;
 import com.school.system.schoolsystem.model.Student;
+import com.school.system.schoolsystem.model.Teacher;
+import com.school.system.schoolsystem.repository.CourseRepository;
 import com.school.system.schoolsystem.repository.StudentRepository;
+import com.school.system.schoolsystem.repository.TeacherRepository;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +22,12 @@ public class StudentServiceImpl implements StudentService{
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private TeacherRepository teacherRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
 
     @Autowired
@@ -79,10 +89,23 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public void addTeacherToStudent(Long teacherId, Long studentId) {
 
+        Teacher teacherToAddStudent = teacherRepository.findById(teacherId).orElseThrow();
+        Student studentToAddTeacher = studentRepository.findById(studentId).orElseThrow();
+
+        studentToAddTeacher.addTeacher(teacherToAddStudent);
+        saveStudent(studentToAddTeacher);
     }
 
     @Override
     public void addCourseToStudent(Long courseId, Long studentId) {
 
+        Course courseToAdd = courseRepository.findById(courseId).orElseThrow();
+        Student studentToAddCourse = studentRepository.findById(studentId).orElseThrow();
+        studentToAddCourse.addCourse(courseToAdd);
+        saveStudent(studentToAddCourse);
+    }
+
+    private Student saveStudent(Student student){
+        return studentRepository.save(student);
     }
 }

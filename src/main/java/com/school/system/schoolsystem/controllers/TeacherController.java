@@ -71,4 +71,15 @@ public class TeacherController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    public ResponseEntity<?> addAStudent(Long studentId, Long teacherId){
+
+        try {
+            teacherService.addStudentToTeacher(studentId, teacherId);
+            return new ResponseEntity<>("Student added successfully!", HttpStatus.ACCEPTED);
+        }catch (TeacherException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
+    }
 }

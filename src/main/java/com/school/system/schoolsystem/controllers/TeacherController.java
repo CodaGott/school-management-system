@@ -72,7 +72,8 @@ public class TeacherController {
         }
     }
 
-    public ResponseEntity<?> addAStudent(Long studentId, Long teacherId){
+    @PutMapping("/{studentId}/{teacherId}")
+    public ResponseEntity<?> addAStudent(@PathVariable Long studentId, @PathVariable Long teacherId){
         try {
             teacherService.addStudentToTeacher(studentId, teacherId);
             return new ResponseEntity<>("Student added successfully!", HttpStatus.ACCEPTED);
@@ -81,7 +82,8 @@ public class TeacherController {
         }
     }
 
-    public ResponseEntity<?> addClass(Long classId, Long teacherId){
+    @PutMapping("/{classId}/{teacherId}")
+    public ResponseEntity<?> addClass(@PathVariable Long classId, @PathVariable Long teacherId){
         try {
             teacherService.addClassToTeacher(classId, teacherId);
             return new ResponseEntity<>("Class added successfully!", HttpStatus.ACCEPTED);

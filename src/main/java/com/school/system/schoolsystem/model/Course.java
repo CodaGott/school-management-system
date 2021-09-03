@@ -39,8 +39,13 @@ public class Course {
         if (students == null){
             this.students = new ArrayList<>();
         }
-//        this.students.add(student);
-//        this.students.addAll(Arrays.asList(student));
         this.students.addAll(Collections.singletonList(student));
+    }
+
+    public void removeStudentFromCourse(Student student){
+        if (students == null){
+            this.students = new ArrayList<>();
+        }
+        this.students.remove(student);
     }
 }

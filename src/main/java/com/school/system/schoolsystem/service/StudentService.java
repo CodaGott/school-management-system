@@ -15,4 +15,6 @@ public interface StudentService {
     void deleteStudentById(Long studentId) throws StudentException;
     void addTeacherToStudent(Long teacherId, Long studentId);
     void addCourseToStudent(Long courseId, Long studentId);
+    void removeCourseFromStudent(Long courseId, Long studentId);
+    void removeTeacherFromStudent(Long teacherId, Long studentId);
 }

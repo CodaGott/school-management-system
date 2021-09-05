@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -27,31 +26,49 @@ public class ClassRoom {
     private List<Teacher> teachers;
 
 
-    public void addCourse(Course course){
+    public void addCourse(Course... course){
         if (courses == null){
             this.courses = new ArrayList<>();
         }
-        this.courses.add(course);
-//        this.courses.addAll(Collections.singletonList(course));
-//        this.courses.addAll(Arrays.asList(course));
+        this.courses.addAll(Arrays.asList(course));
     }
 
-    public void addStudent(Student student){
+    public void addStudent(Student... student){
         if (students == null){
             this.students = new ArrayList<>();
         }
-//        this.students.add(student);
-//        this.students.addAll(Arrays.asList(student));
-        this.students.addAll(Collections.singletonList(student));
+        this.students.addAll(Arrays.asList(student));
     }
 
-    public void addTeacher(Teacher teacher){
+    public void addTeacher(Teacher... teacher){
         if (teachers == null){
             this.teachers = new ArrayList<>();
         }
-//        this.teachers.add(teacher);
-//        this.teachers.addAll(Collections.singletonList(teacher));
         this.teachers.addAll(Arrays.asList(teacher));
+    }
+
+    public void removeTeacherFromClass(Teacher teacher){
+        if (teachers == null){
+            this.teachers = new ArrayList<>();
+        }else {
+            this.teachers.remove(teacher);
+        }
+    }
+
+    public void removeStudentFromClass(Student student){
+        if (students == null){
+            this.students = new ArrayList<>();
+        }else {
+            this.students.remove(student);
+        }
+    }
+
+    public void removeCourseFromClass(Course course){
+        if (courses == null){
+            this.courses = new ArrayList<>();
+        }else {
+            this.courses.remove(course);
+        }
     }
 
 }

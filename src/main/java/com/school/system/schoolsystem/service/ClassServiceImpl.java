@@ -105,6 +105,10 @@ public class ClassServiceImpl implements ClassService{
 
     }
 
+    private ClassRoom saveClass(ClassRoom classRoom){
+        return classRepository.save(classRoom);
+    }
+
     @Override
     public void addStudentToClass(Long studentId, Long classId) {
         Student studentToAdd = studentRepository.findById(studentId).orElseThrow();
@@ -124,10 +128,6 @@ public class ClassServiceImpl implements ClassService{
         saveClass(classToAddCourse);
     }
 
-    private ClassRoom saveClass(ClassRoom classRoom){
-        return classRepository.save(classRoom);
-    }
-
     @Override
     public void addTeacherToClass(Long teacherId, Long classId) {
 
@@ -136,5 +136,29 @@ public class ClassServiceImpl implements ClassService{
 
         classToAddTeacher.addTeacher(teacherToAdd);
         saveClass(classToAddTeacher);
+    }
+
+    @Override
+    public void removeStudentFromClass(Long studentId, Long classId) {
+        Student studentToRemove = studentRepository.findById(studentId).orElseThrow();
+        ClassRoom classToRemoveFrom = classRepository.findById(classId).orElseThrow();
+        classToRemoveFrom.removeStudentFromClass(studentToRemove);
+        saveClass(classToRemoveFrom);
+    }
+
+    @Override
+    public void removeTeacherFromClass(Long teacherId, Long classId) {
+        Teacher teacherToRemove = teacherRepository.findById(teacherId).orElseThrow();
+        ClassRoom classToRemoveFrom = classRepository.findById(classId).orElseThrow();
+        classToRemoveFrom.removeTeacherFromClass(teacherToRemove);
+        saveClass(classToRemoveFrom);
+    }
+
+    @Override
+    public void removeCourseFromClass(Long courseId, Long classId) {
+        Course courseToRemove = courseRepository.findById(courseId).orElseThrow();
+        ClassRoom classToRemoveFrom = classRepository.findById(classId).orElseThrow();
+        classToRemoveFrom.removeCourseFromClass(courseToRemove);
+        saveClass(classToRemoveFrom);
     }
 }

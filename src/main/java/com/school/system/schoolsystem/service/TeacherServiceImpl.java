@@ -116,6 +116,22 @@ public class TeacherServiceImpl implements TeacherService{
 
     }
 
+    @Override
+    public void removeCourseFromTeacher(Long courseId, Long teacherId) {
+        Course courseToRemove = courseRepository.findById(courseId).orElseThrow();
+        Teacher teacherToRemoveCourseFrom = teacherRepository.findById(teacherId).orElseThrow();
+        teacherToRemoveCourseFrom.removeCourseFromTeacher(courseToRemove);
+        saveTeacher(teacherToRemoveCourseFrom);
+    }
+
+    @Override
+    public void removeStudentFromTeacher(Long studentId, Long teacherId) {
+        Student studentToRemove = studentRepository.findById(studentId).orElseThrow();
+        Teacher teacherToRemoveCourseFrom = teacherRepository.findById(teacherId).orElseThrow();
+        teacherToRemoveCourseFrom.removeStudentFromTeacher(studentToRemove);
+        saveTeacher(teacherToRemoveCourseFrom);
+    }
+
     private Teacher saveTeacher(Teacher teacher){
         return teacherRepository.save(teacher);
     }

@@ -16,5 +16,7 @@ public interface TeacherService {
     Teacher updateTeacherInfo(TeacherDto teacherDto, Long teacherId ) throws TeacherException;
     void addClassToTeacher(Long classId, Long teacherId) throws TeacherException;
     void addStudentToTeacher(Long studentId, Long teacherId) throws TeacherException;
+    void removeCourseFromTeacher(Long courseId, Long teacherId);
+    void removeStudentFromTeacher(Long studentId, Long teacherId);
 
 }

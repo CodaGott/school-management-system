@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -35,31 +35,30 @@ public class Teacher {
     private List<Student> students;
 
 
-    public void addStudent(Student student){
+    public void addStudent(Student... student){
         if (students == null){
             this.students = new ArrayList<>();
         }
-//        this.students.add(student);
-//        this.students.addAll(Arrays.asList(student));
-        this.students.addAll(Collections.singletonList(student));
+        else {
+            this.students.addAll(Arrays.asList(student));
+        }
     }
 
-    public void addCourse(Course course){
+    public void addCourse(Course... course){
         if (courses == null){
             this.courses = new ArrayList<>();
+        }else {
+            this.courses.addAll(Arrays.asList(course));
         }
-        this.courses.add(course);
-//        this.courses.addAll(Collections.singletonList(course));
-//        this.courses.addAll(Arrays.asList(course));
     }
 
-    public void addClass(ClassRoom classRoom){
+    public void addClass(ClassRoom... classRoom){
         if (classRoom == null){
             this.classRooms = new ArrayList<>();
+        }else {
+            this.classRooms.addAll(Arrays.asList(classRoom));
         }
-        this.classRooms.add(classRoom);
-//        this.classRooms.addAll(Arrays.asList(classRoom));
-//        this.classRooms.addAll(Collections.singletonList(classRoom));
+
     }
 
 }

@@ -104,9 +104,7 @@ public class CourseServiceImpl implements CourseService{
         Course courseToRemoveFrom = courseRepository.findById(courseId).orElseThrow();
 
         courseToRemoveFrom.removeStudentFromCourse(studentToRemove);
-
-        // TODO add a remove method in the entities you want to remove stuff from their
-        //  list and then call the method here
+        saveCourse(courseToRemoveFrom);
 
     }
 
@@ -116,7 +114,4 @@ public class CourseServiceImpl implements CourseService{
         return courseRepository.save(course);
     }
 
-    private void removeCourseFromStudent(Student student){
-        studentRepository.delete(student);
-    }
 }

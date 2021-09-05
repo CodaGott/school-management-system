@@ -45,7 +45,8 @@ public class Course {
     public void removeStudentFromCourse(Student student){
         if (students == null){
             this.students = new ArrayList<>();
+        }else {
+            this.students.remove(student);
         }
-        this.students.remove(student);
     }
 }

@@ -25,9 +25,9 @@ public class Student {
     private String password;
     @OneToOne
     private Parent parent;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Course> courses;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Teacher> teachers;
     @OneToOne
     private ClassRoom classRoom;
@@ -51,5 +51,20 @@ public class Student {
             this.courses = new ArrayList<>();
         }
         this.courses.addAll(Arrays.asList(course));
+    }
+
+    public void removeCourseFromStudent(Course course){
+        if (courses == null){
+            this.courses = new ArrayList<>();
+        }
+        this.courses.remove(course);
+    }
+
+    public void removeTeacherFromStudent(Teacher teacher){
+        if (teachers == null){
+            this.teachers = new ArrayList<>();
+        }else {
+            this.teachers.remove(teacher);
+        }
     }
 }

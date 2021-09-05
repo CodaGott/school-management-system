@@ -105,6 +105,23 @@ public class StudentServiceImpl implements StudentService{
         saveStudent(studentToAddCourse);
     }
 
+    @Override
+    public void removeCourseFromStudent(Long courseId, Long studentId) {
+        Course courseToRemove = courseRepository.findById(courseId).orElseThrow();
+        Student studentToRemoveCourseFrom = studentRepository.findById(studentId).orElseThrow();
+        studentToRemoveCourseFrom.removeCourseFromStudent(courseToRemove);
+        saveStudent(studentToRemoveCourseFrom);
+
+    }
+
+    @Override
+    public void removeTeacherFromStudent(Long teacherId, Long studentId) {
+        Teacher teacherToRemove = teacherRepository.findById(teacherId).orElseThrow();
+        Student studentToRemoveCourseFrom = studentRepository.findById(studentId).orElseThrow();
+        studentToRemoveCourseFrom.removeTeacherFromStudent(teacherToRemove);
+        saveStudent(studentToRemoveCourseFrom);
+    }
+
     private Student saveStudent(Student student){
         return studentRepository.save(student);
     }

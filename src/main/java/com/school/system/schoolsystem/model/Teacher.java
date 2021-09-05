@@ -61,4 +61,21 @@ public class Teacher {
 
     }
 
+    public void removeStudentFromTeacher(Student student){
+        if (students == null){
+            this.students = new ArrayList<>();
+        }else {
+            this.students.remove(student);
+        }
+    }
+
+    public void removeCourseFromTeacher(Course course){
+        if (courses == null){
+            this.courses = new ArrayList<>();
+        }
+        else {
+            this.courses.remove(course);
+        }
+    }
+
 }

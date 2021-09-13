@@ -91,4 +91,24 @@ public class TeacherController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PutMapping("/{courseId}/{teacherId}")
+    public ResponseEntity<?> removeCourseFromTeacher(@PathVariable Long courseId, @PathVariable Long teacherId){
+        try {
+            teacherService.removeCourseFromTeacher(courseId, teacherId);
+            return new ResponseEntity<>("Course removed successfully!", HttpStatus.CREATED);
+        }catch (TeacherException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{studentId}/{teacherId}")
+    public ResponseEntity<?> removeStudentFromTeacher(@PathVariable Long studentId, @PathVariable Long teacherId){
+        try {
+            teacherService.removeStudentFromTeacher(studentId, teacherId);
+            return new ResponseEntity<>("Student removed successfully!", HttpStatus.CREATED);
+        }catch (TeacherException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

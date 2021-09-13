@@ -70,4 +70,44 @@ public class StudentController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+
+    @PutMapping("/{teacherId}/{studentId}")
+    public ResponseEntity<?> addTeacherToStudent(@PathVariable Long teacherId, @PathVariable Long studentId) {
+        try {
+            studentService.addTeacherToStudent(teacherId, studentId);
+            return new ResponseEntity<>("Teacher added successfully", HttpStatus.ACCEPTED);
+        }catch (StudentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{courseId}/{studentId}")
+    public ResponseEntity<?> addCourseToStudent(@PathVariable Long courseId, @PathVariable Long studentId){
+        try {
+            studentService.addCourseToStudent(courseId, studentId);
+            return new ResponseEntity<>("Course added successfully", HttpStatus.ACCEPTED);
+        }catch (StudentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{courseId}/{studentId}")
+    public ResponseEntity<?> removeCourseFromStudent(@PathVariable Long courseId, @PathVariable Long StudentId){
+        try {
+            studentService.removeCourseFromStudent(courseId, StudentId);
+            return new ResponseEntity<>("Course removed Course From Student", HttpStatus.ACCEPTED);
+        }catch (StudentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{teacherId}/{studentId}")
+    public ResponseEntity<?> removeTeacherFromStudent(@PathVariable Long teacherId, @PathVariable Long studentId){
+        try{
+            studentService.removeTeacherFromStudent(teacherId, studentId);
+            return new ResponseEntity<>("Teacher removed from student", HttpStatus.ACCEPTED);
+        }catch (StudentException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

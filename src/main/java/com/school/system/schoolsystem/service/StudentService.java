@@ -13,8 +13,8 @@ public interface StudentService {
     Student getStudentByName(String studentFirstName) throws StudentException;
     Student updateStudentInfo(StudentDto studentDto, Long studentId) throws StudentException;
     void deleteStudentById(Long studentId) throws StudentException;
-    void addTeacherToStudent(Long teacherId, Long studentId);
-    void addCourseToStudent(Long courseId, Long studentId);
-    void removeCourseFromStudent(Long courseId, Long studentId);
-    void removeTeacherFromStudent(Long teacherId, Long studentId);
+    void addTeacherToStudent(Long teacherId, Long studentId)throws StudentException;
+    void addCourseToStudent(Long courseId, Long studentId)throws StudentException;
+    void removeCourseFromStudent(Long courseId, Long studentId)throws StudentException;
+    void removeTeacherFromStudent(Long teacherId, Long studentId)throws StudentException;
 }

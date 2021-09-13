@@ -14,10 +14,10 @@ public interface ClassService {
     List<ClassRoom> getAllClasses();
     void deleteClass(Long classId) throws ClassException;
     Optional<ClassRoom> getAClassByName(String className) throws ClassException;
-    void addStudentToClass(Long studentId, Long classId);
-    void addCourseToClass(Long courseId, Long classId);
-    void addTeacherToClass(Long teacherId, Long classId);
-    void removeStudentFromClass(Long studentId, Long classId);
-    void removeTeacherFromClass(Long teacherId, Long classId);
-    void removeCourseFromClass(Long courseId, Long classId);
+    void addStudentToClass(Long studentId, Long classId)throws ClassException;
+    void addCourseToClass(Long courseId, Long classId)throws ClassException;
+    void addTeacherToClass(Long teacherId, Long classId)throws ClassException;
+    void removeStudentFromClass(Long studentId, Long classId)throws ClassException;
+    void removeTeacherFromClass(Long teacherId, Long classId)throws ClassException;
+    void removeCourseFromClass(Long courseId, Long classId)throws ClassException;
 }

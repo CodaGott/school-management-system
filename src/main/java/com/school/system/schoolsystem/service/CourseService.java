@@ -13,6 +13,6 @@ public interface CourseService {
     Course getACourse(Long courseId) throws CourseException;
     Course getACourseByName(String courseName) throws CourseException;
     void deleteCourse(Long id) throws CourseException;
-    void addStudentToCourse(Long studentId, Long courseId);
-    void removeStudentFromCourse(Long studentId, Long courseId);
+    void addStudentToCourse(Long studentId, Long courseId)throws CourseException;
+    void removeStudentFromCourse(Long studentId, Long courseId)throws CourseException;
 }

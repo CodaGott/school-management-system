@@ -71,4 +71,25 @@ public class CourseController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
+
+    @PutMapping("/{studentId}/{courseId}")
+    public ResponseEntity<?> addStudentToCourse(@PathVariable Long studentId, @PathVariable Long courseId){
+        try {
+            courseService.addStudentToCourse(studentId, courseId);
+            return new ResponseEntity<>("Student added successfully", HttpStatus.ACCEPTED);
+        }catch (CourseException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{studentId}/{courseId}")
+    public ResponseEntity<?> removeStudentFromCourse(@PathVariable Long studentId, @PathVariable Long courseId){
+        try {
+            courseService.removeStudentFromCourse(studentId, courseId);
+            return new ResponseEntity<>("Student removed successfully", HttpStatus.ACCEPTED);
+        }catch (CourseException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

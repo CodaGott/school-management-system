@@ -68,4 +68,69 @@ public class ClassController {
         }
     }
 
+    @PutMapping("/{studentId}/{classId}")
+    public ResponseEntity<?> addStudentToClass(@PathVariable Long studentId, @PathVariable Long classId){
+        try {
+            classService.addStudentToClass(studentId, classId);
+            return new ResponseEntity<>("Student added to class", HttpStatus.ACCEPTED);
+        }catch (ClassException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{courseId}/{classId}")
+    public ResponseEntity<?> addCourseToClass(@PathVariable Long courseId, @PathVariable Long classId){
+        try {
+            classService.addCourseToClass(courseId, classId);
+            return new ResponseEntity<>("Course added successfully to class room", HttpStatus.ACCEPTED);
+        }catch (ClassException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{teacherId}/{classId}")
+    public ResponseEntity<?> addTeacherToClass(@PathVariable Long teacherId, @PathVariable Long classId){
+        try {
+            classService.addTeacherToClass(teacherId, classId);
+            return new ResponseEntity<>("Teacher added successfully to class room", HttpStatus.ACCEPTED);
+        }catch (ClassException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PutMapping("/{studentId}/{classId}")
+    public ResponseEntity<?> removeStudentFromClass(@PathVariable Long studentId, @PathVariable Long classId){
+        try {
+            classService.removeStudentFromClass(studentId, classId);
+            return new ResponseEntity<>("Student removed successfully from class room", HttpStatus.ACCEPTED);
+        }catch (ClassException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @PutMapping("/{teacherId}/{classId}")
+    public ResponseEntity<?> removeTeacherFromClass(@PathVariable Long teacherId, @PathVariable Long classId){
+        try {
+            classService.removeTeacherFromClass(teacherId, classId);
+            return new ResponseEntity<>("Teacher removed successfully from class room", HttpStatus.ACCEPTED);
+        }catch (ClassException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/{courseId}/{classId}")
+    public ResponseEntity<?> removeCourseFromClass(@PathVariable Long courseId, @PathVariable Long classId){
+        try {
+            classService.removeCourseFromClass(courseId, classId);
+            return new ResponseEntity<>("Course removed successfully from class room", HttpStatus.ACCEPTED);
+        }catch (ClassException e){
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+
+
 }

@@ -18,6 +18,7 @@ public class TeacherDto {
     @NotNull(message = "email can't be null")
     @Email(message = "email must be valid")
     private String email;
+    private String password;
     private Role role;
     private Address address;
     private List<Course> courses;

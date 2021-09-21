@@ -19,5 +19,6 @@ public class ParentDto {
     @NotNull(message = "email name can't be null")
     @Email(message = "email should be null")
     private String email;
+    private String password;
     private Address address;
 }

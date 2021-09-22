@@ -1,8 +1,10 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.StudentDto;
+import com.school.system.schoolsystem.dto.registeration.StudentRegistration;
 import com.school.system.schoolsystem.exception.StudentException;
 import com.school.system.schoolsystem.model.Course;
+import com.school.system.schoolsystem.model.Role;
 import com.school.system.schoolsystem.model.Student;
 import com.school.system.schoolsystem.model.Teacher;
 import com.school.system.schoolsystem.repository.CourseRepository;
@@ -11,6 +13,7 @@ import com.school.system.schoolsystem.repository.TeacherRepository;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +31,9 @@ public class StudentServiceImpl implements StudentService{
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Autowired
@@ -49,6 +55,21 @@ public class StudentServiceImpl implements StudentService{
         }
         modelMapper.map(studentDto, student);
 //        student.setPassword(passwordEncoder.encode(student.getPassword()));
+        return studentRepository.save(student);
+    }
+
+    @Override
+    public Student register(StudentRegistration form) throws StudentException {
+        Student student = new Student();
+
+        boolean studentExists = studentRepository.findByEmail(student.getEmail()).isPresent();
+
+        if (studentExists){
+            throw new StudentException("Student with email already exists");
+        }
+        modelMapper.map(form, student);
+        student.setRole(Role.STUDENT);
+        student.setPassword(passwordEncoder.encode(form.getPassword()));
         return studentRepository.save(student);
     }
 

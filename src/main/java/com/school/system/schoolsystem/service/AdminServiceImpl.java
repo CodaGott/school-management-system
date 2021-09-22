@@ -1,12 +1,15 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.AdminDto;
+import com.school.system.schoolsystem.dto.registeration.AdminRegistration;
 import com.school.system.schoolsystem.exception.AdminException;
 import com.school.system.schoolsystem.model.Admin;
+import com.school.system.schoolsystem.model.Role;
 import com.school.system.schoolsystem.repository.AdminRepository;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +22,10 @@ public class AdminServiceImpl implements AdminService{
     @Autowired
     private AdminRepository adminRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
     private ModelMapper modelMapper;
 
     public AdminServiceImpl(ModelMapper modelMapper) {
@@ -38,6 +44,20 @@ public class AdminServiceImpl implements AdminService{
         modelMapper.map(adminDto, admin);
 
 //        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        return adminRepository.save(admin);
+    }
+
+    @Override
+    public Admin register(AdminRegistration form) throws AdminException {
+        Optional<Admin> optionalAdmin = adminRepository.findByEmail(form.getEmail());
+        Admin admin = new Admin();
+
+        if (optionalAdmin.isPresent()){
+            throw new AdminException("Admin with email already exists");
+        }
+        modelMapper.map(form, admin);
+        admin.setRole(Role.ADMIN);
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         return adminRepository.save(admin);
     }
 

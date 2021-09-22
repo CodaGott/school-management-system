@@ -44,7 +44,7 @@ public class CourseController {
         }
     }
 
-    @GetMapping("/{name}")
+    @GetMapping("course/{name}")
     public ResponseEntity<?> getCourseByName(@PathVariable String name){
         try {
             return new ResponseEntity<>(courseService.getACourseByName(name), HttpStatus.FOUND);
@@ -53,7 +53,7 @@ public class CourseController {
         }
     }
 
-    @PutMapping("/update/{courseId}")
+    @PutMapping("/update-course/{courseId}")
     public ResponseEntity<?> updateCourse(@RequestBody CourseDto courseDto, @PathVariable Long courseId){
         try {
             return new ResponseEntity<>(courseService.updateCourseInfo(courseDto, courseId), HttpStatus.ACCEPTED);
@@ -62,7 +62,7 @@ public class CourseController {
         }
     }
 
-    @DeleteMapping("/{courseId}")
+    @DeleteMapping("delete-course/{courseId}")
     public ResponseEntity<?> deleteCourse(@PathVariable Long courseId){
         try {
             courseService.deleteCourse(courseId);
@@ -73,7 +73,7 @@ public class CourseController {
     }
 
 
-    @PutMapping("/{studentId}/{courseId}")
+    @PutMapping("/add-student-to-course/{studentId}/{courseId}")
     public ResponseEntity<?> addStudentToCourse(@PathVariable Long studentId, @PathVariable Long courseId){
         try {
             courseService.addStudentToCourse(studentId, courseId);
@@ -83,7 +83,7 @@ public class CourseController {
         }
     }
 
-    @PutMapping("/{studentId}/{courseId}")
+    @PutMapping("/remove-student-from-course/{studentId}/{courseId}")
     public ResponseEntity<?> removeStudentFromCourse(@PathVariable Long studentId, @PathVariable Long courseId){
         try {
             courseService.removeStudentFromCourse(studentId, courseId);

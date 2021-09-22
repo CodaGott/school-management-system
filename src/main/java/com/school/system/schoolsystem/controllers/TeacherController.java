@@ -35,7 +35,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/{teacherId}")
+    @GetMapping("/get-by-id/{teacherId}")
     public ResponseEntity<?> getTeacherWithId(@PathVariable Long teacherId){
         try {
             return new ResponseEntity<>(teacherService.getATeacher(teacherId), HttpStatus.FOUND);
@@ -44,7 +44,7 @@ public class TeacherController {
         }
     }
 
-    @GetMapping("/{firstName}")
+    @GetMapping("/get-by-name/{firstName}")
     public ResponseEntity<?> getTeacherByFirstName(@PathVariable String firstName){
         try {
             return new ResponseEntity<>(teacherService.findATeacherByName(firstName), HttpStatus.FOUND);
@@ -62,7 +62,7 @@ public class TeacherController {
         }
     }
 
-    @DeleteMapping("/{teacherId}")
+    @DeleteMapping("delete-teacher/{teacherId}")
     public ResponseEntity<?> deleteTeacher(@PathVariable Long teacherId){
         try {
             teacherService.deleteATeacher(teacherId);
@@ -72,7 +72,7 @@ public class TeacherController {
         }
     }
 
-    @PutMapping("/{studentId}/{teacherId}")
+    @PutMapping("/add-student-to-teacher/{studentId}/{teacherId}")
     public ResponseEntity<?> addAStudent(@PathVariable Long studentId, @PathVariable Long teacherId){
         try {
             teacherService.addStudentToTeacher(studentId, teacherId);
@@ -82,7 +82,7 @@ public class TeacherController {
         }
     }
 
-    @PutMapping("/{classId}/{teacherId}")
+    @PutMapping("/add-class-to-teacher/{classId}/{teacherId}")
     public ResponseEntity<?> addClass(@PathVariable Long classId, @PathVariable Long teacherId){
         try {
             teacherService.addClassToTeacher(classId, teacherId);
@@ -92,7 +92,7 @@ public class TeacherController {
         }
     }
 
-    @PutMapping("/{courseId}/{teacherId}")
+    @PutMapping("/remove-course-from-teacher/{courseId}/{teacherId}")
     public ResponseEntity<?> removeCourseFromTeacher(@PathVariable Long courseId, @PathVariable Long teacherId){
         try {
             teacherService.removeCourseFromTeacher(courseId, teacherId);
@@ -102,7 +102,7 @@ public class TeacherController {
         }
     }
 
-    @PutMapping("/{studentId}/{teacherId}")
+    @PutMapping("/remove-student-from-teacher/{studentId}/{teacherId}")
     public ResponseEntity<?> removeStudentFromTeacher(@PathVariable Long studentId, @PathVariable Long teacherId){
         try {
             teacherService.removeStudentFromTeacher(studentId, teacherId);

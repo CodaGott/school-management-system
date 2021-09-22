@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface ParentRepository extends JpaRepository<Parent, Long> {
     Optional<Parent> findByFirstName(String firstName);
+    Optional<Parent> findByEmail(String email);
 }

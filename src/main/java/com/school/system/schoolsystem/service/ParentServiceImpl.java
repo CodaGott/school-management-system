@@ -1,14 +1,17 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.ParentDto;
+import com.school.system.schoolsystem.dto.registeration.ParentRegistration;
 import com.school.system.schoolsystem.exception.ParentException;
 import com.school.system.schoolsystem.model.Parent;
+import com.school.system.schoolsystem.model.Role;
 import com.school.system.schoolsystem.model.Student;
 import com.school.system.schoolsystem.repository.ParentRepository;
 import com.school.system.schoolsystem.repository.StudentRepository;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +26,9 @@ public class ParentServiceImpl implements ParentService{
 
     @Autowired
     private StudentRepository studentRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -43,6 +49,22 @@ public class ParentServiceImpl implements ParentService{
             return parentRepository.save(parent);
         }else {
             throw new ParentException("Student with " + studentId + " does not exist");
+        }
+    }
+
+    @Override
+    public Parent register(ParentRegistration form) throws ParentException {
+        Parent parent = new Parent();
+
+        boolean parentExist = parentRepository.findByEmail(parent.getEmail()).isPresent();
+
+        if (parentExist){
+            throw new ParentException("Parent with email exists already");
+        }else {
+            modelMapper.map(form, parent);
+            parent.setRole(Role.PARENT);
+            parent.setPassword(passwordEncoder.encode(form.getPassword()));
+            return parentRepository.save(parent);
         }
     }
 

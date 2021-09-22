@@ -1,6 +1,7 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.TeacherDto;
+import com.school.system.schoolsystem.dto.registeration.TeacherRegistration;
 import com.school.system.schoolsystem.exception.CourseException;
 import com.school.system.schoolsystem.exception.TeacherException;
 import com.school.system.schoolsystem.model.Teacher;
@@ -9,6 +10,7 @@ import java.util.List;
 
 public interface TeacherService {
     Teacher createTeacher(TeacherDto teacherDto, Long adminId) throws TeacherException, CourseException;
+    Teacher register(TeacherRegistration form) throws TeacherException;
     Teacher getATeacher(Long teacherId) throws TeacherException;
     List<Teacher> getTeachers() throws TeacherException;
     void deleteATeacher(Long teacherId) throws TeacherException;

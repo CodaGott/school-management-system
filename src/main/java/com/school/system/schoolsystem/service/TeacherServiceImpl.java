@@ -1,6 +1,7 @@
 package com.school.system.schoolsystem.service;
 
 import com.school.system.schoolsystem.dto.TeacherDto;
+import com.school.system.schoolsystem.dto.registeration.TeacherRegistration;
 import com.school.system.schoolsystem.exception.CourseException;
 import com.school.system.schoolsystem.exception.TeacherException;
 import com.school.system.schoolsystem.model.*;
@@ -8,6 +9,7 @@ import com.school.system.schoolsystem.repository.*;
 import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +28,10 @@ public class TeacherServiceImpl implements TeacherService{
     @Autowired
     private ClassRepository classRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    @Autowired
     private ModelMapper modelMapper;
 
     @Autowired
@@ -50,6 +55,21 @@ public class TeacherServiceImpl implements TeacherService{
         }else{
             throw new CourseException("Course with " + courseId + " id does not exist");
         }
+    }
+
+    @Override
+    public Teacher register(TeacherRegistration form) throws TeacherException {
+        Teacher teacher = new Teacher();
+        boolean teacherExist = teacherRepository.findByEmail(form.getEmail()).isPresent();
+        if (teacherExist){
+            throw new TeacherException("Teacher with the email already exist");
+        }else {
+            modelMapper.map(form, teacher);
+            teacher.setRole(Role.TEACHER);
+            teacher.setPassword(passwordEncoder.encode(form.getPassword()));
+            return teacherRepository.save(teacher);
+        }
+
     }
 
     @Override

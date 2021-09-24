@@ -13,16 +13,16 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Student {
+public class Student extends User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long student_id;
-    private String firstName;
-    private String lastName;
-    private Integer age;
-    private String email;
-    private String password;
+//    private String firstName;
+//    private String lastName;
+//    private Integer age;
+//    private String email;
+//    private String password;
     @OneToOne
     private Parent parent;
     @OneToMany(cascade = CascadeType.ALL)

@@ -10,16 +10,16 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Admin {
+public class Admin extends User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long adminId;
-    private String firstName;
-    private String lastName;
-    private Integer age;
-    private String email;
-    private String password;
-    private String phoneNumber;
+//    private String firstName;
+//    private String lastName;
+//    private Integer age;
+//    private String email;
+//    private String password;
+//    private String phoneNumber;
     @Enumerated(EnumType.STRING)
     private Role role;
     @Embedded

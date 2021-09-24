@@ -12,21 +12,21 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Parent {
+public class Parent extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
-    private String lastName;
+//    private String firstName;
+//    private String lastName;
     @OneToMany
     private List<Student> students;
     @Enumerated(EnumType.STRING)
-    private Role role;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    @Embedded
-    private Address address;
+//    private Role role;
+//    private String email;
+//    private String password;
+//    private String phoneNumber;
+//    @Embedded
+//    private Address address;
 
     public void addStudent(Student... student){
         if (students == null){

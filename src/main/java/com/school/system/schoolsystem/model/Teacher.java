@@ -13,20 +13,20 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Teacher {
+public class Teacher extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private Integer age;
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    @Embedded
-    private Address address;
+//    private String firstName;
+//    private String lastName;
+//    private String email;
+//    private String password;
+//    private String phoneNumber;
+//    private Integer age;
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
+//    @Embedded
+//    private Address address;
     @OneToMany
     private List<Course> courses;
     @OneToMany

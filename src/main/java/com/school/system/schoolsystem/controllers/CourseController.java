@@ -6,6 +6,7 @@ import com.school.system.schoolsystem.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,6 +19,7 @@ public class CourseController {
 
 
     @PostMapping("/addCourse/{teacherId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addCourse(@RequestBody CourseDto courseDto, @PathVariable Long teacherId){
         try {
             return new ResponseEntity<>(courseService.createCourse(courseDto, teacherId), HttpStatus.CREATED);
@@ -26,7 +28,8 @@ public class CourseController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PARENT', 'TEACHER', 'STUDENT')")
     public ResponseEntity<?> getAllCourses(){
         try {
             return new ResponseEntity<>(courseService.getAllCourse(), HttpStatus.FOUND);
@@ -36,6 +39,7 @@ public class CourseController {
     }
 
     @GetMapping("/{courseId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PARENT', 'TEACHER', 'STUDENT')")
     public ResponseEntity<?> getCourseById(@PathVariable Long courseId){
         try {
             return new ResponseEntity<>(courseService.getACourse(courseId), HttpStatus.FOUND);
@@ -45,6 +49,7 @@ public class CourseController {
     }
 
     @GetMapping("course/{name}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PARENT', 'TEACHER', 'STUDENT')")
     public ResponseEntity<?> getCourseByName(@PathVariable String name){
         try {
             return new ResponseEntity<>(courseService.getACourseByName(name), HttpStatus.FOUND);
@@ -54,6 +59,7 @@ public class CourseController {
     }
 
     @PutMapping("/update-course/{courseId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateCourse(@RequestBody CourseDto courseDto, @PathVariable Long courseId){
         try {
             return new ResponseEntity<>(courseService.updateCourseInfo(courseDto, courseId), HttpStatus.ACCEPTED);
@@ -63,6 +69,7 @@ public class CourseController {
     }
 
     @DeleteMapping("delete-course/{courseId}")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     public ResponseEntity<?> deleteCourse(@PathVariable Long courseId){
         try {
             courseService.deleteCourse(courseId);
@@ -74,6 +81,7 @@ public class CourseController {
 
 
     @PutMapping("/add-student-to-course/{studentId}/{courseId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addStudentToCourse(@PathVariable Long studentId, @PathVariable Long courseId){
         try {
             courseService.addStudentToCourse(studentId, courseId);
@@ -84,6 +92,7 @@ public class CourseController {
     }
 
     @PutMapping("/remove-student-from-course/{studentId}/{courseId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> removeStudentFromCourse(@PathVariable Long studentId, @PathVariable Long courseId){
         try {
             courseService.removeStudentFromCourse(studentId, courseId);

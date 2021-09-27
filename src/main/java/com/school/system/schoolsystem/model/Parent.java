@@ -2,12 +2,14 @@ package com.school.system.schoolsystem.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @AllArgsConstructor
@@ -16,13 +18,13 @@ public class Parent extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-//    private String firstName;
+    private String firstName;
 //    private String lastName;
     @OneToMany
     private List<Student> students;
-    @Enumerated(EnumType.STRING)
+//    @Enumerated(EnumType.STRING)
 //    private Role role;
-//    private String email;
+    private String email;
 //    private String password;
 //    private String phoneNumber;
 //    @Embedded

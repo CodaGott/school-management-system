@@ -6,6 +6,7 @@ import com.school.system.schoolsystem.service.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -24,7 +25,8 @@ public class ParentController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> getAllParents(){
         try {
             return new ResponseEntity<>(parentService.getAllParents(), HttpStatus.FOUND);
@@ -34,6 +36,7 @@ public class ParentController {
     }
 
     @GetMapping("/{parentId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'PARENT')")
     public ResponseEntity<?> getParentById(@PathVariable Long parentId){
         try {
             return new ResponseEntity<>(parentService.getAParent(parentId), HttpStatus.FOUND);
@@ -43,6 +46,7 @@ public class ParentController {
     }
 
     @GetMapping("/{firstName}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'PARENT')")
     public ResponseEntity<?> getParentByFirstName(@PathVariable String firstName){
         try {
             return new ResponseEntity<>(parentService.getParentByName(firstName), HttpStatus.FOUND);
@@ -52,6 +56,7 @@ public class ParentController {
     }
 
     @PutMapping("/update/{parentId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER', 'PARENT')")
     public ResponseEntity<?> updateParentInfo(@RequestBody ParentDto parentDto, @PathVariable Long parentId){
         try {
             return new ResponseEntity<>(parentService.updateParentInfo(parentDto, parentId), HttpStatus.ACCEPTED);
@@ -61,6 +66,7 @@ public class ParentController {
     }
 
     @DeleteMapping("/{parentId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> deleteParent(@PathVariable Long parentId){
         try {
             parentService.deleteParent(parentId);

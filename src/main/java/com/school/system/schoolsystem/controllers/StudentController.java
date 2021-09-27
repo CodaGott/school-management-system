@@ -6,6 +6,7 @@ import com.school.system.schoolsystem.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -25,7 +26,8 @@ public class StudentController {
         }
     }
 
-    @GetMapping("")
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> getAllStudents(){
         try {
             return new ResponseEntity<>(studentService.getAllStudents(), HttpStatus.FOUND);
@@ -35,6 +37,7 @@ public class StudentController {
     }
 
     @GetMapping("/get-by-id/{studentId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PARENT', 'TEACHER', 'STUDENT')")
     public ResponseEntity<?> getStudentById(@PathVariable Long studentId){
         try {
             return new ResponseEntity<>(studentService.getAStudent(studentId), HttpStatus.FOUND);
@@ -53,6 +56,7 @@ public class StudentController {
     }
 
     @PutMapping("/update-student/{studentId}")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     public ResponseEntity<?> updateStudent(@RequestBody StudentDto studentDto, @PathVariable Long studentId){
         try {
             return new ResponseEntity<>(studentService.updateStudentInfo(studentDto, studentId), HttpStatus.ACCEPTED);
@@ -62,6 +66,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/delete-student/{studentId}")
+    @PreAuthorize("hasAnyRole('ADMIN','TEACHER')")
     public ResponseEntity<?> deleteStudent(@PathVariable Long studentId){
         try {
             studentService.deleteStudentById(studentId);
@@ -72,6 +77,7 @@ public class StudentController {
     }
 
     @PutMapping("/add-teacher-to-student/{teacherId}/{studentId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addTeacherToStudent(@PathVariable Long teacherId, @PathVariable Long studentId) {
         try {
             studentService.addTeacherToStudent(teacherId, studentId);
@@ -82,6 +88,7 @@ public class StudentController {
     }
 
     @PutMapping("/add-course-to-student/{courseId}/{studentId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> addCourseToStudent(@PathVariable Long courseId, @PathVariable Long studentId){
         try {
             studentService.addCourseToStudent(courseId, studentId);
@@ -92,6 +99,7 @@ public class StudentController {
     }
 
     @PutMapping("/remove-course-from-student/{courseId}/{studentId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> removeCourseFromStudent(@PathVariable Long courseId, @PathVariable Long studentId){
         try {
             studentService.removeCourseFromStudent(courseId, studentId);
@@ -102,6 +110,7 @@ public class StudentController {
     }
 
     @PutMapping("/remove-teacher-from-student/{teacherId}/{studentId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> removeTeacherFromStudent(@PathVariable Long teacherId, @PathVariable Long studentId){
         try{
             studentService.removeTeacherFromStudent(teacherId, studentId);

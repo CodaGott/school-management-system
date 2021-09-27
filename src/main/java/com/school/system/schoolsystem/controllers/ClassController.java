@@ -6,6 +6,7 @@ import com.school.system.schoolsystem.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -17,6 +18,7 @@ public class ClassController {
 
 
     @PostMapping("/createClass")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createClass(@RequestBody ClassDto classDto) throws ClassException{
         try {
             return new ResponseEntity<>(classService.createClass(classDto), HttpStatus.CREATED);
@@ -26,11 +28,13 @@ public class ClassController {
     }
 
     @GetMapping("")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> getAllClasses(){
         return new ResponseEntity<>(classService.getAllClasses(), HttpStatus.FOUND);
     }
 
     @GetMapping("/{classId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> getClassById(@PathVariable Long classId){
         try {
             return new ResponseEntity<>(classService.getAClass(classId), HttpStatus.FOUND);
@@ -40,6 +44,7 @@ public class ClassController {
     }
 
     @GetMapping("/{className}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> getClassByName(@PathVariable String className){
         try {
             return new ResponseEntity<>(classService.getAClassByName(className), HttpStatus.FOUND);
@@ -49,6 +54,7 @@ public class ClassController {
     }
 
     @PutMapping("/update-class/{classId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> updateClassInfo(@RequestBody ClassDto classDto, @PathVariable Long classId){
         try {
             return new ResponseEntity<>(classService.updateClassInfo(classDto, classId), HttpStatus.ACCEPTED);
@@ -59,6 +65,7 @@ public class ClassController {
 
 
     @DeleteMapping("/delete-class/{classId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> deleteClass(@PathVariable Long classId) throws ClassException {
         try {
             classService.deleteClass(classId);
@@ -69,6 +76,7 @@ public class ClassController {
     }
 
     @PutMapping("/add/{studentId}/{classId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> addStudentToClass(@PathVariable Long studentId, @PathVariable Long classId){
         try {
             classService.addStudentToClass(studentId, classId);
@@ -79,6 +87,7 @@ public class ClassController {
     }
 
     @PutMapping("/add-course-to-class/{courseId}/{classId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addCourseToClass(@PathVariable Long courseId, @PathVariable Long classId){
         try {
             classService.addCourseToClass(courseId, classId);
@@ -89,6 +98,7 @@ public class ClassController {
     }
 
     @PutMapping("/add-teacher-to-class/{teacherId}/{classId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addTeacherToClass(@PathVariable Long teacherId, @PathVariable Long classId){
         try {
             classService.addTeacherToClass(teacherId, classId);
@@ -100,6 +110,7 @@ public class ClassController {
 
 
     @PutMapping("/remove-student-from-class/{studentId}/{classId}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'TEACHER')")
     public ResponseEntity<?> removeStudentFromClass(@PathVariable Long studentId, @PathVariable Long classId){
         try {
             classService.removeStudentFromClass(studentId, classId);
@@ -111,6 +122,7 @@ public class ClassController {
 
 
     @PutMapping("/remove-teacher-from-class/{teacherId}/{classId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> removeTeacherFromClass(@PathVariable Long teacherId, @PathVariable Long classId){
         try {
             classService.removeTeacherFromClass(teacherId, classId);
@@ -121,6 +133,7 @@ public class ClassController {
     }
 
     @PutMapping("/remove-course-from-class/{courseId}/{classId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> removeCourseFromClass(@PathVariable Long courseId, @PathVariable Long classId){
         try {
             classService.removeCourseFromClass(courseId, classId);

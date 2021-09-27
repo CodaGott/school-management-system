@@ -18,7 +18,7 @@ public class ParentRegistrationController {
     @Autowired
     private ParentService parentService;
 
-    @PostMapping("/register")
+    @PostMapping("/registration")
     public ResponseEntity<?> register(@RequestBody ParentRegistration form){
         try {
             return new ResponseEntity<>(parentService.register(form), HttpStatus.CREATED);

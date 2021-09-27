@@ -18,7 +18,7 @@ public class StudentRegistrationController {
     @Autowired
     private StudentService studentService;
 
-    @PostMapping("/login")
+    @PostMapping("/registration")
     public ResponseEntity<?> studentRegister(@RequestBody StudentRegistration form){
         try {
             return new ResponseEntity<>(studentService.register(form), HttpStatus.CREATED);

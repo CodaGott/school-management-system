@@ -7,6 +7,7 @@ import com.school.system.schoolsystem.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,11 +28,13 @@ public class AdminController {
     }
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllAdmin(){
         return new ResponseEntity<>(adminService.getAllAdmins(), HttpStatus.FOUND);
     }
 
     @GetMapping("/{adminId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAdminWithId(@PathVariable Long adminId){
         try {
             return new ResponseEntity<>(adminService.getAdmin(adminId), HttpStatus.FOUND);
@@ -41,6 +44,7 @@ public class AdminController {
     }
 
     @GetMapping("/{firstName}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAdminByName(@PathVariable String firstName) throws AdminException {
         try {
             return new ResponseEntity<>(adminService.getAdminByFirstName(firstName), HttpStatus.FOUND);
@@ -50,6 +54,7 @@ public class AdminController {
     }
 
     @PutMapping("/update/{adminId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateAdminInfo(@RequestBody AdminDto adminDto, @PathVariable Long adminId){
         try {
             return new ResponseEntity<>(adminService.updateAdminInfo(adminDto, adminId), HttpStatus.ACCEPTED);
@@ -59,6 +64,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/{adminId}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteAdmin(@PathVariable Long adminId) throws AdminException {
         try {
             adminService.deleteAdmin(adminId);

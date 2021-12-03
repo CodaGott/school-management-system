@@ -130,4 +130,3 @@
       -Update Profile
       -Change Password
       -Change Password
-      -View Student's (Child's) Profile
